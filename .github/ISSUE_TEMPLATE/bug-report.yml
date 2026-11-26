@@ -1,0 +1,45 @@
+name: Bug report
+description: A validator accepts an invalid value, rejects a valid one, or misbehaves.
+labels: [bug]
+body:
+  - type: input
+    id: validator
+    attributes:
+      label: Validator
+      placeholder: fpPostCode
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: Input and options
+      description: The value you validated and the options you passed.
+      render: ts
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      placeholder: ngx-formpulse 1.0.0, Angular 22.3.0
+    validations:
+      required: true
+  - type: dropdown
+    id: forms
+    attributes:
+      label: Forms API
+      options: [Reactive Forms, Signal Forms, Both]
+    validations:
+      required: true

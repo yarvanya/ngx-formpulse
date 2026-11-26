@@ -1,0 +1,19 @@
+import {FpLocale, type FpLocalePack} from 'ngx-formpulse';
+
+/**
+ * FormPulse locale pack: French messages for every validator.
+ *
+ * @example
+ * ```ts
+ * import {FpLocale, provideFormPulse} from 'ngx-formpulse';
+ * import {fpLocaleFr} from 'ngx-formpulse/locales/fr';
+ *
+ * provideFormPulse({locale: FpLocale.Fr, locales: [fpLocaleFr]});
+ * ```
+ *
+ * @see https://github.com/yarvanya/ngx-formpulse#localization
+ */
+export const fpLocaleFr = {
+  locale: FpLocale.Fr,
+  messages: {}
+} as const satisfies FpLocalePack;

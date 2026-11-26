@@ -1,0 +1,1 @@
+export {fpLocaleDe} from './de';

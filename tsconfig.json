@@ -1,0 +1,54 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "ngx-formpulse": [
+        "./projects/ngx-formpulse/src/public-api.ts"
+      ],
+      "ngx-formpulse/signals": [
+        "./projects/ngx-formpulse/signals/src/public-api.ts"
+      ],
+      "ngx-formpulse/locales/*": [
+        "./projects/ngx-formpulse/locales/*/src/public-api.ts"
+      ]
+    },
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true,
+    "typeCheckHostBindings": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/ngx-formpulse/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngx-formpulse/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/sandbox/tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.typecheck.json"
+    },
+    {
+      "path": "./tsconfig.tools.json"
+    }
+  ]
+}

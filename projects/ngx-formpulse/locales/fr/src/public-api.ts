@@ -1,0 +1,1 @@
+export {fpLocaleFr} from './fr';

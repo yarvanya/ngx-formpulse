@@ -1,0 +1,1 @@
+export {fpLocaleEs} from './es';

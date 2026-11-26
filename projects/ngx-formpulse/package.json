@@ -1,0 +1,31 @@
+{
+  "name": "ngx-formpulse",
+  "version": "0.0.0",
+  "description": "Strictly typed, zero-dependency validators for Angular Reactive Forms and Signal Forms.",
+  "license": "MIT",
+  "author": "Ivan Yarymovych",
+  "homepage": "https://github.com/yarvanya/ngx-formpulse#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yarvanya/ngx-formpulse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yarvanya/ngx-formpulse/issues"
+  },
+  "keywords": ["angular", "validators", "forms", "reactive-forms", "signal-forms", "validation", "typescript"],
+  "peerDependencies": {
+    "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0"
+  },
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/public-api.ts",
+    "./signals": "./signals/src/public-api.ts",
+    "./locales/uk": "./locales/uk/src/public-api.ts",
+    "./locales/es": "./locales/es/src/public-api.ts",
+    "./locales/pt": "./locales/pt/src/public-api.ts",
+    "./locales/pl": "./locales/pl/src/public-api.ts",
+    "./locales/de": "./locales/de/src/public-api.ts",
+    "./locales/fr": "./locales/fr/src/public-api.ts"
+  }
+}

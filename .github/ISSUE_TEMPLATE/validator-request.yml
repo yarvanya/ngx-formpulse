@@ -1,0 +1,34 @@
+name: Validator request
+description: Ask for a validator FormPulse does not have yet.
+labels: [validator-request]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Proposed name
+      placeholder: fpIban
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+    validations:
+      required: true
+  - type: textarea
+    id: valid
+    attributes:
+      label: Examples of valid values
+    validations:
+      required: true
+  - type: textarea
+    id: invalid
+    attributes:
+      label: Examples of invalid values
+    validations:
+      required: true
+  - type: input
+    id: standard
+    attributes:
+      label: Governing standard or data source
+      placeholder: ISO 13616

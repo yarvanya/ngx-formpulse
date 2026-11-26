@@ -1,0 +1,1 @@
+export {fpLocaleUk} from './uk';
