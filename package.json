@@ -14,15 +14,15 @@
     "build:library": "ng build ngx-formpulse",
     "build:sandbox": "ng build sandbox",
     "lint": "eslint .",
-    "typecheck": "tsc -p projects/ngx-formpulse/tsconfig.lib.json --noEmit && tsc -p tsconfig.tools.json",
+    "typecheck": "tsc -p projects/ngx-formpulse/tsconfig.lib.json --noEmit && tsc -p projects/ngx-formpulse/tsconfig.spec.json --noEmit && tsc -p tsconfig.tools.json",
     "test": "ng test ngx-formpulse --watch=false --coverage && vitest run --config vitest.tools.config.ts",
-    "test:types": "vitest run --config vitest.typecheck.config.ts",
-    "check:redos": "tsx tools/check-redos/check-redos.ts",
+    "check:redos": "tsx tools/scripts/check-redos.ts",
     "size": "size-limit",
-    "bench": "tsx tools/benchmark/validators.bench.ts",
+    "bench": "tsx tools/scripts/validators-benchmark.ts",
     "e2e": "playwright test",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run test:types && npm run check:redos && npm run build && npm run size && npm run bench && npm run e2e",
-    "prepare": "husky"
+    "verify": "npm run lint && npm run typecheck && npm run check:test-mirror && npm run test && npm run check:redos && npm run build && npm run size && npm run bench && npm run e2e",
+    "prepare": "husky",
+    "check:test-mirror": "tsx tools/scripts/check-test-mirror.ts"
   },
   "lint-staged": {
     "*.{ts,mjs,html}": "eslint"

@@ -37,8 +37,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - run: npm run check:test-mirror
       - run: npm test
-      - run: npm run test:types
 
   build-and-e2e:
     name: build-and-e2e

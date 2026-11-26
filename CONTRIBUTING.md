@@ -19,12 +19,24 @@ One validator is delivered completely in one story:
 3. Messages in all 7 locales (a missing translation is a compile error).
 4. TSDoc on every public export: description, parameters, error shape, governing standard,
    example and docs link.
-5. Unit tests with 100% coverage and type tests.
+5. Unit tests with 100% coverage, including type assertions.
 6. A sandbox page listing every test case.
 7. Playwright e2e for that page, including an accessibility scan.
 
 Empty values (`''`, `null`, `undefined`) are valid for every validator except `fpRequired`.
 Validators never modify the control value and never throw.
+
+## Project layout
+
+Code and unit tests live in two mirrored trees, in the library and in `tools/`:
+
+- `lib/`: source files only (`.ts`, `.mjs`).
+- `unit-testing/`: one `.spec.ts` per source file, at the same relative path
+  (`lib/core/locale-resolver.ts` → `unit-testing/core/locale-resolver.spec.ts`).
+  Type assertions (`expectTypeOf`) live in the same spec files. Shared test helpers go to
+  `unit-testing/support/`. Entry points (`public-api.ts`) have no spec.
+
+`npm run check:test-mirror` fails on a source without a spec or a spec without a source.
 
 ## Code style
 
@@ -39,5 +51,6 @@ The linter is the judge; `npm run lint` must report nothing.
 
 ## Quality gates
 
-`npm run verify` runs every gate in CI order: lint, typecheck, unit tests with coverage, type
-tests, ReDoS check, build, bundle size, benchmark, e2e.
+`npm run verify` runs every gate in CI order: lint, typecheck (including the type assertions in
+specs), test mirror check, unit tests with coverage, ReDoS check, build, bundle size, benchmark,
+e2e.

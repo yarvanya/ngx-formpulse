@@ -32,17 +32,13 @@
             "tsConfig": "projects/ngx-formpulse/tsconfig.spec.json",
             "runner": "vitest",
             "include": [
-              "**/*.spec.ts"
+              "unit-testing/**/*.spec.ts"
             ],
             "coverageInclude": [
-              "projects/ngx-formpulse/**/*.ts"
+              "projects/ngx-formpulse/lib/**/*.ts"
             ],
             "coverageExclude": [
-              "**/public-api.ts",
-              "**/*.spec.ts",
-              "**/*.test-d.ts",
-              "**/testing/**",
-              "**/*.cases.ts"
+              "**/public-api.ts"
             ],
             "coverageReporters": [
               "text",
