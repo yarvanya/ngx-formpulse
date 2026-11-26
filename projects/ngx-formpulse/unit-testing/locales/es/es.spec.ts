@@ -1,5 +1,6 @@
 import {FpLocale} from '../../../lib/core/fp-locale';
 import type {FpLocalePack} from '../../../lib/core/fp-locale-pack';
+import {FpCountry} from '../../../lib/enums/fp-country';
 import {fpLocaleEs} from '../../../lib/locales/es/es';
 
 describe('fpLocaleEs', () => {
@@ -12,7 +13,11 @@ describe('fpLocaleEs', () => {
     expectTypeOf(fpLocaleEs).toExtend<FpLocalePack>();
   });
 
-  it('has no messages before the first validator ships', () => {
-    expect(Object.keys(fpLocaleEs.messages)).toEqual([]);
+  it('translates fpPostCode with an example', () => {
+    expect(fpLocaleEs.messages.fpPostCode({country: FpCountry.UA, examples: ['01001']})).toBe('Introduce un código postal válido, por ejemplo 01001.');
+  });
+
+  it('translates fpPostCode without an example', () => {
+    expect(fpLocaleEs.messages.fpPostCode({country: null, examples: []})).toBe('Introduce un código postal válido.');
   });
 });

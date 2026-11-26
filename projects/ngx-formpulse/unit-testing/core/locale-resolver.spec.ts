@@ -1,10 +1,11 @@
 import {resetDevelopmentWarnings} from '../../lib/core/development-warning';
 import {FpLocale} from '../../lib/core/fp-locale';
-import type {FpLocalePack} from '../../lib/core/fp-locale-pack';
 import {findLocalePack, resolveLocale} from '../../lib/core/locale-resolver';
+import {fpLocaleDe} from '../../lib/locales/de/de';
+import {fpLocaleUk} from '../../lib/locales/uk/uk';
 
-const UKRAINIAN_PACK: FpLocalePack = {locale: FpLocale.Uk, messages: {}};
-const GERMAN_PACK: FpLocalePack = {locale: FpLocale.De, messages: {}};
+const UKRAINIAN_PACK = fpLocaleUk;
+const GERMAN_PACK = fpLocaleDe;
 
 describe('findLocalePack', () => {
   it('finds a registered pack', () => {
