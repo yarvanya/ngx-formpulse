@@ -5,6 +5,7 @@ import {MatCardModule} from '@angular/material/card';
 import {POST_CODE_RULES} from '@formpulse/cases';
 import {FpCountry, FpLocale, fpPostCode} from 'ngx-formpulse';
 import {ApiTable} from '../../validator-page/api-table';
+import {isObject, isString} from '../../utilities/core.utility';
 import {CodeExample} from '../../validator-page/code-example';
 import {type ReferenceColumn, type ReferenceRow, ReferenceTable} from '../../validator-page/reference-table';
 import {
@@ -65,10 +66,10 @@ function toMemberName(locale: FpLocale): string {
 
 function readPostCodeMessage(validation_errors: ValidationErrors | null): string {
   const postCodeError: unknown = validation_errors?.['fpPostCode'];
-  if (typeof postCodeError !== 'object' || postCodeError === null || !('message' in postCodeError)) {
+  if (!isObject(postCodeError) || !('message' in postCodeError)) {
     return '';
   }
-  return typeof postCodeError.message === 'string' ? postCodeError.message : '';
+  return isString(postCodeError.message) ? postCodeError.message : '';
 }
 
 function toLocaleRow(locale: FpLocale): ReferenceRow {

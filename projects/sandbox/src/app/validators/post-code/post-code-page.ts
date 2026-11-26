@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, computed, effect, inject, Injector, runInInjectionContext, signal, untracked} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, effect, signal} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {form} from '@angular/forms/signals';
 import {MatCardModule} from '@angular/material/card';
@@ -11,6 +11,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {POST_CODE_CASES, type PostCodeCase} from '@formpulse/cases';
 import {FpCountry, FpLocale, fpPostCode, type FpPostCodeOptions} from 'ngx-formpulse';
 import {fpPostCode as fpSignalPostCode} from 'ngx-formpulse/signals';
+import {isString} from '../../utilities/core.utility';
 import {CasesTable, type ValidatorCaseRow} from '../../validator-page/cases-table';
 import {CodeExample} from '../../validator-page/code-example';
 import {LocaleSwitcher} from '../../validator-page/locale-switcher';
@@ -71,8 +72,6 @@ function describeArguments(country: FpCountry | null, validator_options: FpPostC
   templateUrl: './post-code-page.html'
 })
 export class PostCodePage {
-  private readonly injector = inject(Injector);
-
   protected readonly anyCountry = ANY_COUNTRY;
   protected readonly importReactive = POST_CODE_IMPORT_REACTIVE;
   protected readonly importSignals = POST_CODE_IMPORT_SIGNALS;
@@ -93,16 +92,8 @@ export class PostCodePage {
 
   protected readonly validatorOptions = computed<FpPostCodeOptions>(() => ({strict: this.isStrict(), locale: this.locale()}));
 
-  protected readonly signalForm = computed(() => {
-    const country = this.country();
-    const validatorOptions = this.validatorOptions();
-    return untracked(() => runInInjectionContext(this.injector, () => form(this.signalModel, (schema_path) => {
-      if (country === null) {
-        fpSignalPostCode(schema_path.postCode, validatorOptions);
-      } else {
-        fpSignalPostCode(schema_path.postCode, country, validatorOptions);
-      }
-    })));
+  protected readonly signalForm = form(this.signalModel, (schema_path) => {
+    fpSignalPostCode(schema_path.postCode, () => this.country(), () => this.validatorOptions());
   });
 
   protected readonly reactiveCode = computed(() => [
@@ -127,16 +118,8 @@ export class PostCodePage {
 
   constructor() {
     effect(() => {
-      const country = this.country();
-      const validatorOptions = this.validatorOptions();
-      this.reactiveControl.setValidators(country === null ? fpPostCode(validatorOptions) : fpPostCode(country, validatorOptions));
+      this.reactiveControl.setValidators(fpPostCode(this.country(), this.validatorOptions()));
       this.reactiveControl.updateValueAndValidity();
-    });
-    effect(() => {
-      const postCodeField = this.signalForm().postCode;
-      if (untracked(() => this.signalModel().postCode) !== '') {
-        postCodeField().markAsDirty();
-      }
     });
   }
 
@@ -149,12 +132,12 @@ export class PostCodePage {
     if (postCodeCase === undefined) {
       return;
     }
-    const caseValue = typeof postCodeCase.value === 'string' ? postCodeCase.value : String(postCodeCase.value ?? '');
+    const caseValue = isString(postCodeCase.value) ? postCodeCase.value : String(postCodeCase.value ?? '');
     this.country.set(postCodeCase.country);
     this.isStrict.set(postCodeCase.strict);
     this.reactiveControl.setValue(caseValue);
     this.reactiveControl.markAsDirty();
     this.signalModel.set({postCode: caseValue});
-    this.signalForm().postCode().markAsDirty();
+    this.signalForm.postCode().markAsDirty();
   }
 }

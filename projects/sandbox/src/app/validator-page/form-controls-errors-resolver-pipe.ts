@@ -1,5 +1,6 @@
 import {Pipe, type PipeTransform} from '@angular/core';
 import type {ValidationErrors} from '@angular/forms';
+import {isObject, isString} from '../utilities/core.utility';
 
 export interface SignalFieldError {
   readonly kind: string;
@@ -24,10 +25,10 @@ const BUILT_IN_MESSAGES: Readonly<Partial<Record<string, string>>> = {
 const FALLBACK_MESSAGE = 'The value is invalid.';
 
 function readMessage(error_value: unknown): string | undefined {
-  if (typeof error_value !== 'object' || error_value === null || !('message' in error_value)) {
+  if (!isObject(error_value) || !('message' in error_value)) {
     return undefined;
   }
-  return typeof error_value.message === 'string' ? error_value.message : undefined;
+  return isString(error_value.message) ? error_value.message : undefined;
 }
 
 function readFirstError(control_errors: ValidationErrors | readonly SignalFieldError[] | null | undefined): ResolvedError | undefined {

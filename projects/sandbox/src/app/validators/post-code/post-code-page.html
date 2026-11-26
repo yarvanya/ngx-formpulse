@@ -21,8 +21,9 @@
           <ul class="feature-list">
             <li>With a country, the value must match that country's postal-code format.</li>
             <li>Without a country, the value must match the format of at least one supported country.</li>
-            <li>Empty values are valid; combine with a required validator for mandatory fields.</li>
-            <li>A country without postal codes accepts any value.</li>
+            <li>Empty values are valid; combine with a required validator for mandatory fields. A value of spaces only is invalid.</li>
+            <li>A country without postal codes accepts any other value.</li>
+            <li>In Signal Forms the country can follow another field: <code>fpPostCode(path.postCode, () => model().country)</code>.</li>
             <li>Tolerant by default: surrounding spaces and letter case are ignored. <code>strict: true</code> matches exactly.</li>
             <li>The control value is never modified.</li>
           </ul>
@@ -90,7 +91,7 @@
             <mat-card-subtitle>form() + fpPostCode</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <fp-signal-live-field label="Postal code (Signal Forms)" [field]="signalForm().postCode" />
+            <fp-signal-live-field label="Postal code (Signal Forms)" [field]="signalForm.postCode" />
             <fp-code-example title="Signal Forms" [code]="signalCode()" />
           </mat-card-content>
         </mat-card>

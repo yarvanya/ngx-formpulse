@@ -29,18 +29,22 @@ export const POST_CODE_ERROR_EXAMPLE = [
 
 export const POST_CODE_REACTIVE_SIGNATURES = [
   'fpPostCode(validator_options?: FpPostCodeOptions): ValidatorFn',
-  'fpPostCode(country: FpCountry, validator_options?: FpPostCodeOptions): ValidatorFn'
+  'fpPostCode(country: FpCountry | null, validator_options?: FpPostCodeOptions): ValidatorFn'
 ].join('\n');
 
 export const POST_CODE_SIGNAL_SIGNATURES = [
-  'fpPostCode(schema_path: SchemaPath<string | null | undefined>, validator_options?: FpPostCodeOptions): void',
-  'fpPostCode(schema_path: SchemaPath<string | null | undefined>, country: FpCountry, validator_options?: FpPostCodeOptions): void'
+  'fpPostCode(schema_path: SchemaPath<string | null | undefined>, validator_options?: FpPostCodeOptions | (() => FpPostCodeOptions)): void',
+  'fpPostCode(',
+  '  schema_path: SchemaPath<string | null | undefined>,',
+  '  country: FpCountry | null | (() => FpCountry | null),',
+  '  validator_options?: FpPostCodeOptions | (() => FpPostCodeOptions)',
+  '): void'
 ].join('\n');
 
 export const POST_CODE_PARAMETER_ROWS: readonly ApiRow[] = [
   {name: 'schema_path', type: 'SchemaPath', required: 'Signal Forms only', defaultValue: '—', description: 'Field to validate.'},
-  {name: 'country', type: 'FpCountry', required: 'No', defaultValue: 'any country', description: 'Country whose format the value must match. Without it, any supported country matches.'},
-  {name: 'validator_options', type: 'FpPostCodeOptions', required: 'No', defaultValue: '{}', description: 'Locale, custom message and strict matching.'}
+  {name: 'country', type: 'FpCountry | null', required: 'No', defaultValue: 'any country', description: 'Country whose format the value must match; null or no country means any supported country. In Signal Forms it can also be a function such as () => model().country, read on every validation.'},
+  {name: 'validator_options', type: 'FpPostCodeOptions', required: 'No', defaultValue: '{}', description: 'Locale, custom message and strict matching. In Signal Forms it can also be a function returning them.'}
 ];
 
 export const POST_CODE_OPTION_ROWS: readonly ApiRow[] = [
@@ -68,10 +72,12 @@ export const POST_CODE_IMPORT_ROWS: readonly ApiRow[] = [
 
 export const POST_CODE_BEHAVIOUR = [
   'Empty values (\'\', null, undefined) are valid.',
+  'A string that is blank after trimming (spaces, non-breaking spaces) is invalid for every country and in any-country mode.',
   'A value that is not a string is invalid.',
-  'Tolerant by default: surrounding spaces are trimmed and letters are upper-cased before matching; strict: true matches exactly as entered.',
-  'With a country, the value must match that country\'s pattern; a country without postal codes accepts any value.',
-  'Without a country, the value must match the pattern of at least one of the 174 supported countries.',
+  'Tolerant by default: surrounding spaces are trimmed and ASCII letters are upper-cased before matching; strict: true matches exactly as entered.',
+  'With a country, the value must match that country\'s pattern; a country without postal codes accepts any other value.',
+  'Without a country (or with null), the value must match the pattern of at least one of the 174 supported countries.',
+  'In Signal Forms the country and the options can be functions, read on every validation, so the rule follows another field of the form.',
   'The control value is never modified, and the validator never throws.'
 ];
 
