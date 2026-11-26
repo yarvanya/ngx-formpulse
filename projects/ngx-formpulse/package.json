@@ -12,20 +12,28 @@
   "bugs": {
     "url": "https://github.com/yarvanya/ngx-formpulse/issues"
   },
-  "keywords": ["angular", "validators", "forms", "reactive-forms", "signal-forms", "validation", "typescript"],
+  "keywords": [
+    "angular",
+    "validators",
+    "forms",
+    "reactive-forms",
+    "signal-forms",
+    "validation",
+    "typescript"
+  ],
   "peerDependencies": {
     "@angular/core": "^22.0.0",
     "@angular/forms": "^22.0.0"
   },
   "sideEffects": false,
   "exports": {
-    ".": "./src/public-api.ts",
-    "./signals": "./signals/src/public-api.ts",
-    "./locales/uk": "./locales/uk/src/public-api.ts",
-    "./locales/es": "./locales/es/src/public-api.ts",
-    "./locales/pt": "./locales/pt/src/public-api.ts",
-    "./locales/pl": "./locales/pl/src/public-api.ts",
-    "./locales/de": "./locales/de/src/public-api.ts",
-    "./locales/fr": "./locales/fr/src/public-api.ts"
+    ".": "./lib/public-api.ts",
+    "./signals": "./lib/signals/public-api.ts",
+    "./locales/uk": "./lib/locales/uk/public-api.ts",
+    "./locales/es": "./lib/locales/es/public-api.ts",
+    "./locales/pt": "./lib/locales/pt/public-api.ts",
+    "./locales/pl": "./lib/locales/pl/public-api.ts",
+    "./locales/de": "./lib/locales/de/public-api.ts",
+    "./locales/fr": "./lib/locales/fr/public-api.ts"
   }
 }

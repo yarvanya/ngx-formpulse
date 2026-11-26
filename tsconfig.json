@@ -10,13 +10,13 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "ngx-formpulse": [
-        "./projects/ngx-formpulse/src/public-api.ts"
+        "./projects/ngx-formpulse/lib/public-api.ts"
       ],
       "ngx-formpulse/signals": [
-        "./projects/ngx-formpulse/signals/src/public-api.ts"
+        "./projects/ngx-formpulse/lib/signals/public-api.ts"
       ],
       "ngx-formpulse/locales/*": [
-        "./projects/ngx-formpulse/locales/*/src/public-api.ts"
+        "./projects/ngx-formpulse/lib/locales/*/public-api.ts"
       ]
     },
     "skipLibCheck": true,
@@ -43,9 +43,6 @@
     },
     {
       "path": "./projects/sandbox/tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.typecheck.json"
     },
     {
       "path": "./tsconfig.tools.json"
