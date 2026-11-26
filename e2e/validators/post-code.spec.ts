@@ -104,6 +104,12 @@ test.describe('fpPostCode page', () => {
       await expectBothErrors(page, 'Enter a valid postal code, e.g. 15432.');
     });
 
+    test('rejects a value of spaces only for any country', async ({page}) => {
+      await selectOption(page, 'Country', 'Any country');
+      await typeInBothFields(page, '   ');
+      await expectBothErrors(page, 'Enter a valid postal code.');
+    });
+
     test('switches to another country', async ({page}) => {
       await selectOption(page, 'Country', 'Poland (PL)');
       await typeInBothFields(page, '00950');
