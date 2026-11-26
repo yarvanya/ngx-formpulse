@@ -52,7 +52,7 @@ jobs:
           awk -v version="$VERSION" '$0 ~ "^## \[?" version {found=1; next} found && /^## / {exit} found {print}' CHANGELOG.md > release-notes.md
           gh release create "v${VERSION}" --target "$GITHUB_SHA" --title "v${VERSION}" --notes-file release-notes.md
       - if: steps.decision.outputs.publish == 'true'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist/sandbox/browser
       - if: steps.decision.outputs.publish == 'true'
