@@ -23,6 +23,39 @@ npm install ngx-formpulse
 
 Requires Angular 22.
 
+## Validators
+
+### fpPostCode
+
+Validates a postal code against the format of one country, or of any supported country.
+
+```ts
+import {FormControl} from '@angular/forms';
+import {FpCountry, fpPostCode} from 'ngx-formpulse';
+
+new FormControl('', [fpPostCode(FpCountry.UA)]);
+new FormControl('', [fpPostCode(FpCountry.GB, {strict: true})]);
+new FormControl('', [fpPostCode()]);
+```
+
+Signal Forms:
+
+```ts
+import {form} from '@angular/forms/signals';
+import {FpCountry} from 'ngx-formpulse';
+import {fpPostCode} from 'ngx-formpulse/signals';
+
+form(model, (path) => {
+  fpPostCode(path.postCode, FpCountry.UA);
+});
+```
+
+- Error `errors.fpPostCode`: `{country, examples, message}`.
+- Empty values are valid. A country without postal codes accepts any value.
+- Tolerant by default (surrounding spaces, letter case); `strict: true` matches exactly.
+- Checks the format, not that the postal code exists.
+- Data: [Google libaddressinput](https://github.com/google/libaddressinput) (Apache-2.0), see `NOTICE`.
+
 ## Configuration
 
 Optional. Without configuration every message is English.

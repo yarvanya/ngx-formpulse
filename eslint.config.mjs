@@ -32,10 +32,13 @@ const PUBLIC_API_CONTEXTS = [
   'ExportNamedDeclaration > TSEnumDeclaration[id.name=/^Fp/]'
 ];
 
-const FILES_TYPED_BY_EMPTY_ERROR_MAP_UNTIL_FIRST_VALIDATOR = [
-  'projects/ngx-formpulse/lib/core/fp-error-map.ts',
-  'projects/ngx-formpulse/lib/core/fp-locale-pack.ts',
-  'projects/ngx-formpulse/unit-testing/core/fp-locale-pack.spec.ts'
+const PUBLIC_OVERLOAD_CONTEXTS = [
+  'ExportNamedDeclaration > TSDeclareFunction[id.name=/^fp/]'
+];
+
+const FRAMEWORK_AGNOSTIC_FILES = [
+  'projects/ngx-formpulse/lib/core/**/*.ts',
+  'projects/ngx-formpulse/lib/validators/**/*.ts'
 ];
 
 const sharedRules = {
@@ -120,6 +123,7 @@ export default tseslint.config(
         {selector: 'typeParameter', format: ['PascalCase'], prefix: ['T']},
         {selector: 'enumMember', format: ['PascalCase', 'UPPER_CASE']},
         {selector: 'import', format: ['camelCase', 'PascalCase']},
+        {selector: 'objectLiteralProperty', format: ['camelCase', 'UPPER_CASE']},
         {selector: ['objectLiteralProperty', 'typeProperty'], modifiers: ['requiresQuotes'], format: null}
       ],
       '@angular-eslint/component-selector': ['error', {type: 'element', prefix: 'fp', style: 'kebab-case'}],
@@ -133,10 +137,15 @@ export default tseslint.config(
       jsdoc: {mode: 'typescript', tagNamePreference: {template: 'typeParam'}}
     },
     rules: {
-      'jsdoc/require-jsdoc': ['error', {publicOnly: false, require: {FunctionDeclaration: false}, contexts: PUBLIC_API_CONTEXTS}],
-      'jsdoc/require-description': ['error', {contexts: PUBLIC_API_CONTEXTS}],
-      'jsdoc/require-example': ['error', {contexts: PUBLIC_API_CONTEXTS}],
-      'jsdoc/require-param': ['error', {contexts: PUBLIC_API_CONTEXTS}],
+      'jsdoc/require-jsdoc': ['error', {
+        publicOnly: false,
+        require: {FunctionDeclaration: false},
+        contexts: [...PUBLIC_API_CONTEXTS, ...PUBLIC_OVERLOAD_CONTEXTS],
+        exemptOverloadedImplementations: true
+      }],
+      'jsdoc/require-description': ['error', {contexts: [...PUBLIC_API_CONTEXTS, ...PUBLIC_OVERLOAD_CONTEXTS]}],
+      'jsdoc/require-example': ['error', {contexts: [...PUBLIC_API_CONTEXTS, ...PUBLIC_OVERLOAD_CONTEXTS]}],
+      'jsdoc/require-param': ['error', {contexts: [...PUBLIC_API_CONTEXTS, ...PUBLIC_OVERLOAD_CONTEXTS]}],
       'jsdoc/require-returns': ['error', {contexts: PUBLIC_API_CONTEXTS}],
       'jsdoc/check-param-names': 'error',
       'jsdoc/check-tag-names': ['error', {definedTags: ['typeParam']}],
@@ -144,23 +153,17 @@ export default tseslint.config(
     }
   },
   {
-    files: FILES_TYPED_BY_EMPTY_ERROR_MAP_UNTIL_FIRST_VALIDATOR,
-    rules: {
-      '@typescript-eslint/no-empty-object-type': ['error', {allowInterfaces: 'always'}],
-      '@typescript-eslint/no-generated-empty-object-type': 'off'
-    }
-  },
-  {
-    files: ['projects/ngx-formpulse/lib/core/**/*.ts'],
-    rules: {
-      'no-restricted-imports': ['error', {patterns: [{group: ['@angular/*', 'rxjs', 'rxjs/*'], message: 'Core files must stay framework-agnostic.'}]}]
-    }
-  },
-  {
     files: ['projects/ngx-formpulse/lib/**/*.ts'],
     ignores: ['projects/ngx-formpulse/lib/signals/**'],
     rules: {
       'no-restricted-imports': ['error', {paths: [{name: '@angular/forms/signals', message: 'Only ngx-formpulse/signals may import Signal Forms.'}]}]
+    }
+  },
+  {
+    files: FRAMEWORK_AGNOSTIC_FILES,
+    ignores: ['**/*.reactive.ts'],
+    rules: {
+      'no-restricted-imports': ['error', {patterns: [{group: ['@angular/*', 'rxjs', 'rxjs/*'], message: 'Core and validator logic must stay framework-agnostic.'}]}]
     }
   },
   {

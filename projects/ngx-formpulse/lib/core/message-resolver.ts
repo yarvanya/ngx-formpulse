@@ -11,7 +11,7 @@ export type MessageSource = string | MessageFormatter;
 
 export interface MessageRequest {
   readonly validatorKey: string;
-  readonly englishMessage: string;
+  readonly englishMessage: MessageSource;
   readonly errorParameters: Readonly<Record<string, unknown>>;
   readonly inlineLocale?: FpLocale | undefined;
   readonly inlineMessage?: MessageSource | undefined;
@@ -36,7 +36,7 @@ export function resolveMessage(message_request: MessageRequest): string {
   const formPulseConfig = getFormPulseConfig();
   const messageOverrides: Readonly<Partial<Record<string, MessageSource>>> = formPulseConfig.messages ?? {};
   const locale = resolveLocale(message_request.inlineLocale, formPulseConfig);
-  const localeMessages: Readonly<Partial<Record<string, string>>> = findLocalePack(locale, formPulseConfig)?.messages ?? {};
+  const localeMessages: Readonly<Partial<Record<string, MessageSource>>> = findLocalePack(locale, formPulseConfig)?.messages ?? {};
   const messageSource = message_request.inlineMessage
     ?? messageOverrides[message_request.validatorKey]
     ?? localeMessages[message_request.validatorKey]

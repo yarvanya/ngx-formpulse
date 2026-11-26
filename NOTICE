@@ -4,3 +4,17 @@ Licensed under the MIT License (see LICENSE).
 
 This product includes third-party reference data. Each source, its license and
 its retrieval date are listed below.
+
+-------------------------------------------------------------------------------
+Google libaddressinput
+https://github.com/google/libaddressinput
+Copyright Google LLC
+Licensed under the Apache License, Version 2.0
+(http://www.apache.org/licenses/LICENSE-2.0)
+
+Source file: testdata/countryinfo.txt
+Commit: 5ef3a927bdd6002bf25c5c09029347bebf57a57b (retrieved 2026-11-26)
+Used for: postal-code patterns and examples of fpPostCode
+(projects/ngx-formpulse/lib/validators/post-code/post-code.data.ts).
+Modifications: patterns are anchored; examples that do not match their own
+country pattern are removed; regions outside ISO 3166-1 (AC, TA, XK) are skipped.
