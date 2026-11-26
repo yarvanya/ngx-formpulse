@@ -20,10 +20,11 @@
     "size": "size-limit",
     "bench": "tsx tools/scripts/validators-benchmark.ts",
     "e2e": "playwright test",
-    "verify": "npm run lint && npm run typecheck && npm run check:test-mirror && npm run test && npm run check:redos && npm run build && npm run size && npm run bench && npm run e2e",
+    "verify": "npm run lint && npm run typecheck && npm run check:test-mirror && npm run test && npm run check:redos && npm run build && npm run check:package && npm run size && npm run bench && npm run e2e",
     "prepare": "husky",
     "check:test-mirror": "tsx tools/scripts/check-test-mirror.ts",
-    "generate:validator": "tsx tools/scripts/generate-validator.ts"
+    "generate:validator": "tsx tools/scripts/generate-validator.ts",
+    "check:package": "tsx tools/scripts/check-package.ts"
   },
   "lint-staged": {
     "*.{ts,mjs,html}": "eslint"

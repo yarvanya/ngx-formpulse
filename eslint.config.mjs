@@ -38,7 +38,8 @@ const PUBLIC_OVERLOAD_CONTEXTS = [
 
 const FRAMEWORK_AGNOSTIC_FILES = [
   'projects/ngx-formpulse/lib/core/**/*.ts',
-  'projects/ngx-formpulse/lib/validators/**/*.ts'
+  'projects/ngx-formpulse/lib/validators/**/*.ts',
+  'projects/ngx-formpulse/lib/utilities/**/*.ts'
 ];
 
 const sharedRules = {

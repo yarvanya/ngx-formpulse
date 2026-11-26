@@ -51,7 +51,8 @@ form(model, (path) => {
 ```
 
 - Error `errors.fpPostCode`: `{country, examples, message}`.
-- Empty values are valid. A country without postal codes accepts any value.
+- Empty values are valid; a value of spaces only is invalid. A country without postal codes accepts any other value.
+- The country can be `null` (any country). In Signal Forms it can be a function, e.g. `() => model().country`, so the rule follows another field.
 - Tolerant by default (surrounding spaces, letter case); `strict: true` matches exactly.
 - Checks the format, not that the postal code exists.
 - Data: [Google libaddressinput](https://github.com/google/libaddressinput) (Apache-2.0), see `NOTICE`.

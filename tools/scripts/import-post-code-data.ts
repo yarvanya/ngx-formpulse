@@ -7,7 +7,7 @@ const SOURCE_COMMIT = '5ef3a927bdd6002bf25c5c09029347bebf57a57b';
 const SOURCE_FILE = 'testdata/countryinfo.txt';
 const OUTPUT_FILE = 'projects/ngx-formpulse/lib/validators/post-code/post-code.data.ts';
 const FAILURE_EXIT_CODE = 1;
-const DATE_LENGTH = 10;
+const RETRIEVED_ON = '2026-11-26';
 
 const DATA_SOURCE: PostCodeDataSource = {
   name: 'Google libaddressinput',
@@ -15,7 +15,7 @@ const DATA_SOURCE: PostCodeDataSource = {
   file: SOURCE_FILE,
   commit: SOURCE_COMMIT,
   license: 'Apache-2.0',
-  retrievedOn: new Date().toISOString().slice(0, DATE_LENGTH)
+  retrievedOn: RETRIEVED_ON
 };
 
 async function importPostCodeData(): Promise<void> {

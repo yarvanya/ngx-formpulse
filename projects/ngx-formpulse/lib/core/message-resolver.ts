@@ -1,5 +1,6 @@
 import type {FpLocale} from './fp-locale';
 import {getFormPulseConfig} from './form-pulse-registry';
+import {isObject, isString} from '../utilities/core.utility';
 import {findLocalePack, resolveLocale} from './locale-resolver';
 
 const PLACEHOLDER_PATTERN = /\{(\w+)\}/g;
@@ -22,12 +23,14 @@ function stringifyParameter(parameter_value: unknown): string {
     const items: readonly unknown[] = parameter_value;
     return items.map((item) => stringifyParameter(item)).join(LIST_SEPARATOR);
   }
-  return typeof parameter_value === 'object' && parameter_value !== null ? JSON.stringify(parameter_value) : String(parameter_value);
+  return isObject(parameter_value) ? JSON.stringify(parameter_value) : String(parameter_value);
 }
 
 function formatMessage(message_source: MessageSource, error_parameters: Readonly<Record<string, unknown>>): string {
-  const template = typeof message_source === 'string' ? message_source : message_source(error_parameters);
-  return template.replace(PLACEHOLDER_PATTERN, (placeholder: string, parameter_name: string) => (
+  if (!isString(message_source)) {
+    return message_source(error_parameters);
+  }
+  return message_source.replace(PLACEHOLDER_PATTERN, (placeholder: string, parameter_name: string) => (
     Object.hasOwn(error_parameters, parameter_name) ? stringifyParameter(error_parameters[parameter_name]) : placeholder
   ));
 }

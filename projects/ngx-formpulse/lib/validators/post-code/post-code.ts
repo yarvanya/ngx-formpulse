@@ -1,9 +1,11 @@
-import {isEmptyValue} from '../../core/empty-value';
+import {warnOnceInDevelopment} from '../../core/development-warning';
+import {isBlankText, isEmptyValue} from '../../core/empty-value';
 import type {FpError, FpErrorParameters} from '../../core/fp-error';
 import type {FpBaseOptions} from '../../core/fp-options';
 import {resolveMessage} from '../../core/message-resolver';
 import {normalizeLetterCase, normalizeWhitespace} from '../../core/normalize';
-import type {FpCountry} from '../../enums/fp-country';
+import {FpCountry} from '../../enums/fp-country';
+import {isString} from '../../utilities/core.utility';
 import {POST_CODE_RULES, type PostCodeRule} from './post-code.data';
 
 /**
@@ -55,34 +57,57 @@ function normalizePostCode(post_code: string, is_strict: boolean): string {
   return normalizeLetterCase(normalizeWhitespace(post_code, is_strict), is_strict);
 }
 
+let allPostCodeRules: readonly PostCodeRule[] | undefined;
+let countryCodes: ReadonlySet<string> | undefined;
+
+function readAllPostCodeRules(): readonly PostCodeRule[] {
+  allPostCodeRules ??= Object.values(POST_CODE_RULES);
+  return allPostCodeRules;
+}
+
+function isCountryCode(country: string): boolean {
+  countryCodes ??= new Set<string>(Object.values(FpCountry));
+  return countryCodes.has(country);
+}
+
+function findPostCodeRule(country: FpCountry): PostCodeRule | undefined {
+  if (!isCountryCode(country)) {
+    warnOnceInDevelopment(`fpPostCode received "${country}", which is not an FpCountry member, so any value is accepted.`);
+  }
+  return Object.hasOwn(POST_CODE_RULES, country) ? POST_CODE_RULES[country] : undefined;
+}
+
 function matchesPostCode(post_code: string, post_code_rule: PostCodeRule | undefined): boolean {
   if (post_code_rule === undefined) {
-    return Object.values(POST_CODE_RULES).some((any_post_code_rule) => any_post_code_rule.pattern.test(post_code));
+    return readAllPostCodeRules().some((any_post_code_rule) => any_post_code_rule.pattern.test(post_code));
   }
   return post_code_rule.pattern.test(post_code);
 }
 
 export function readPostCodeArguments(
-  country_or_options: FpCountry | FpPostCodeOptions | undefined,
+  country_or_options: FpCountry | FpPostCodeOptions | null | undefined,
   validator_options: FpPostCodeOptions | undefined
-): readonly [FpCountry | undefined, FpPostCodeOptions] {
-  if (typeof country_or_options === 'string') {
+): readonly [FpCountry | null, FpPostCodeOptions] {
+  if (isString(country_or_options) || country_or_options === null) {
     return [country_or_options, validator_options ?? {}];
   }
-  return [undefined, country_or_options ?? {}];
+  return [null, country_or_options ?? validator_options ?? {}];
 }
 
-export function checkPostCode(control_value: unknown, country: FpCountry | undefined, validator_options: FpPostCodeOptions): FpPostCodeError | null {
-  const postCodeRule = country === undefined ? undefined : POST_CODE_RULES[country];
-  const hasNoPostCodes = country !== undefined && postCodeRule === undefined;
-  if (isEmptyValue(control_value) || hasNoPostCodes) {
+export function checkPostCode(control_value: unknown, country: FpCountry | null, validator_options: FpPostCodeOptions): FpPostCodeError | null {
+  if (isEmptyValue(control_value)) {
     return null;
   }
-  if (typeof control_value === 'string' && matchesPostCode(normalizePostCode(control_value, validator_options.strict ?? false), postCodeRule)) {
+  const postCodeRule = country === null ? undefined : findPostCodeRule(country);
+  const isBlank = isBlankText(control_value);
+  if (!isBlank && country !== null && postCodeRule === undefined) {
+    return null;
+  }
+  if (!isBlank && isString(control_value) && matchesPostCode(normalizePostCode(control_value, validator_options.strict ?? false), postCodeRule)) {
     return null;
   }
   const errorParameters = {
-    country: country ?? null,
+    country,
     examples: postCodeRule?.examples ?? NO_EXAMPLES
   };
   const message = resolveMessage({

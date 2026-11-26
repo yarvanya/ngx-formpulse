@@ -15,7 +15,24 @@
         "build": {
           "builder": "@angular/build:library",
           "options": {
-            "tsConfig": "projects/ngx-formpulse/tsconfig.lib.json"
+            "tsConfig": "projects/ngx-formpulse/tsconfig.lib.json",
+            "assets": [
+              {
+                "glob": "LICENSE",
+                "input": ".",
+                "output": "."
+              },
+              {
+                "glob": "NOTICE",
+                "input": ".",
+                "output": "."
+              },
+              {
+                "glob": "*.txt",
+                "input": "third-party-licenses",
+                "output": "third-party-licenses"
+              }
+            ]
           },
           "configurations": {
             "production": {},

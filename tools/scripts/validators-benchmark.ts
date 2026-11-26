@@ -22,7 +22,7 @@ const BENCHMARK_CASES: readonly BenchmarkCase[] = [
   },
   {
     name: 'fpPostCode (any country, invalid)',
-    run: () => checkPostCode('%%%', undefined, {})
+    run: () => checkPostCode('%%%', null, {})
   },
   {
     name: 'isEmptyValue',
