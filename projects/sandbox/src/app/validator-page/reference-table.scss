@@ -1,0 +1,34 @@
+.reference-table {
+  margin-bottom: var(--fp-space-large);
+}
+
+.search-field {
+  width: 100%;
+  max-width: 28rem;
+  margin-bottom: var(--fp-space-medium);
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--mat-sys-outline-variant);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+}
+
+caption {
+  padding: var(--fp-space-medium);
+  text-align: left;
+  font: var(--mat-sys-title-medium);
+}
+
+.no-data {
+  padding: var(--fp-space-medium);
+  color: var(--mat-sys-on-surface-variant);
+}
+
+mat-paginator {
+  background: transparent;
+}

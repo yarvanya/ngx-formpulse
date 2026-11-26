@@ -1,0 +1,20 @@
+.step-card {
+  position: relative;
+  margin-bottom: var(--fp-space-large);
+  padding-left: 56px;
+  border-radius: var(--fp-radius);
+}
+
+.step-number {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-weight: 700;
+  color: #fff;
+  background: var(--fp-gradient);
+}

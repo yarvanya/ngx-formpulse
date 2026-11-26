@@ -1,0 +1,35 @@
+.code-example {
+  margin: var(--fp-space-medium) 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--fp-code-background);
+  box-shadow: var(--mat-sys-level1);
+
+  figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px 4px 16px;
+    color: #c4b5fd;
+    background: rgb(255 255 255 / 6%);
+
+    button {
+      --mat-icon-button-icon-color: #ede9fe;
+    }
+  }
+
+  pre {
+    margin: 0;
+    padding: var(--fp-space-medium);
+    overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    color: var(--fp-code-text);
+    line-height: 1.6;
+  }
+}
+
+.code-title {
+  font: var(--mat-sys-label-large);
+  letter-spacing: 0.02em;
+}

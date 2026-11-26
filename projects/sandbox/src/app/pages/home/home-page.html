@@ -1,17 +1,36 @@
-<h1>FormPulse</h1>
-<p class="lead">
-  Strictly typed, zero-dependency validators for Angular Reactive Forms and Signal Forms.
-</p>
+<section class="hero" aria-labelledby="hero-title">
+  <h1 id="hero-title">FormPulse</h1>
+  <p class="hero-lead">
+    Strictly typed, zero-dependency validators for Angular Reactive Forms and Signal Forms.
+  </p>
+  <div class="hero-actions">
+    <a mat-flat-button routerLink="/getting-started">
+      <mat-icon>rocket_launch</mat-icon>
+      Get started
+    </a>
+    <a mat-stroked-button class="hero-secondary" routerLink="/validators/post-code">
+      <mat-icon>markunread_mailbox</mat-icon>
+      Browse validators
+    </a>
+  </div>
+</section>
 
-<h2>Why FormPulse</h2>
-<ul>
-  <li>One line per validator: import a function and add it to a control.</li>
-  <li>Typed parameters and typed errors, with a ready message in 7 languages.</li>
-  <li>The same validators work in Reactive Forms and Signal Forms.</li>
-  <li>Zero runtime dependencies, tree-shakable, SSR-safe.</li>
-</ul>
+<section class="install" aria-labelledby="install-title">
+  <h2 id="install-title">Install</h2>
+  <fp-code-example title="Terminal" language="bash" [code]="installCommand" />
+</section>
 
-<h2>Install</h2>
-<pre><code>{{ installCommand }}</code></pre>
-
-<p>The validator catalogue grows one validator at a time. <a routerLink="/getting-started">Get started</a></p>
+<section aria-labelledby="features-title">
+  <h2 id="features-title">Why FormPulse</h2>
+  <div class="card-grid">
+    @for (feature of features; track feature.title) {
+      <mat-card appearance="outlined" class="feature-card">
+        <mat-card-content>
+          <span class="feature-icon" aria-hidden="true"><mat-icon>{{ feature.icon }}</mat-icon></span>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.text }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</section>

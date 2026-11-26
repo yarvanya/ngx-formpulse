@@ -1,0 +1,79 @@
+.validator-header {
+  display: flex;
+  gap: var(--fp-space-large);
+  align-items: flex-start;
+  margin-bottom: var(--fp-space-large);
+}
+
+.validator-icon {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  color: #fff;
+  background: var(--fp-gradient);
+  box-shadow: var(--mat-sys-level2);
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.validator-tabs {
+  --mat-tab-header-label-text-size: 1rem;
+}
+
+.tab-body {
+  padding: var(--fp-space-large) 0;
+}
+
+.options-panel {
+  display: grid;
+  gap: var(--fp-space-medium);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  align-items: center;
+}
+
+.example-card {
+  border-radius: var(--fp-radius);
+
+  mat-card-content {
+    padding-top: var(--fp-space-medium);
+  }
+
+  ::ng-deep .live-field {
+    width: 100%;
+  }
+}
+
+.api-contents {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fp-space-small);
+  margin-bottom: var(--fp-space-large);
+  padding: var(--fp-space-small) 0;
+  background: var(--mat-sys-surface-container-lowest);
+
+  button {
+    padding: 6px 14px;
+    border: 0;
+    cursor: pointer;
+    border-radius: 999px;
+    font: var(--mat-sys-label-large);
+    text-decoration: none;
+    color: var(--mat-sys-on-secondary-container);
+    background: var(--mat-sys-secondary-container);
+  }
+}
+
+.api-section {
+  scroll-margin-top: 64px;
+  margin-bottom: var(--fp-space-extra-large);
+}

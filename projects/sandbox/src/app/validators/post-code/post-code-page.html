@@ -1,0 +1,104 @@
+<header class="validator-header">
+  <span class="validator-icon" aria-hidden="true"><mat-icon>markunread_mailbox</mat-icon></span>
+  <div>
+    <h1>fpPostCode</h1>
+    <p class="page-lead">Postal codes of 174 countries, checked against the format of one country or of any.</p>
+    <mat-chip-set aria-label="Highlights">
+      <mat-chip disableRipple>Reactive Forms</mat-chip>
+      <mat-chip disableRipple>Signal Forms</mat-chip>
+      <mat-chip disableRipple>7 languages</mat-chip>
+      <mat-chip disableRipple>Google libaddressinput</mat-chip>
+    </mat-chip-set>
+  </div>
+</header>
+
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="150ms" class="validator-tabs">
+  <mat-tab label="Description">
+    <div class="tab-body">
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>What it does</h2>
+          <ul class="feature-list">
+            <li>With a country, the value must match that country's postal-code format.</li>
+            <li>Without a country, the value must match the format of at least one supported country.</li>
+            <li>Empty values are valid; combine with a required validator for mandatory fields.</li>
+            <li>A country without postal codes accepts any value.</li>
+            <li>Tolerant by default: surrounding spaces and letter case are ignored. <code>strict: true</code> matches exactly.</li>
+            <li>The control value is never modified.</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="card-grid">
+        <fp-code-example title="Reactive Forms" [code]="importReactive" />
+        <fp-code-example title="Signal Forms" [code]="importSignals" />
+      </div>
+
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>Error object</h2>
+          <p>Every failure reports a typed error with a ready, localized message.</p>
+          <fp-code-example title="Error" [code]="errorExample" />
+        </mat-card-content>
+      </mat-card>
+
+      <fp-source-note sourceName="Google libaddressinput" sourceUrl="https://github.com/google/libaddressinput" license="Apache-2.0" />
+    </div>
+  </mat-tab>
+
+  <mat-tab label="API">
+    <div class="tab-body">
+      <fp-post-code-api />
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Examples">
+    <div class="tab-body">
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>Options</h2>
+          <div class="options-panel">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Country</mat-label>
+              <mat-select [value]="country() ?? anyCountry" (valueChange)="selectCountry($event)">
+                <mat-option [value]="anyCountry">Any country</mat-option>
+                @for (countryOption of countryOptions; track countryOption.value) {
+                  <mat-option [value]="countryOption.value">{{ countryOption.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+            <fp-locale-switcher [(locale)]="locale" />
+            <mat-slide-toggle [checked]="isStrict()" (change)="isStrict.set($event.checked)">Strict matching</mat-slide-toggle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="card-grid">
+        <mat-card appearance="outlined" class="example-card">
+          <mat-card-header>
+            <mat-card-title>Reactive Forms</mat-card-title>
+            <mat-card-subtitle>FormControl + fpPostCode</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <fp-reactive-live-field label="Postal code (Reactive Forms)" [control]="reactiveControl" />
+            <fp-code-example title="Reactive Forms" [code]="reactiveCode()" />
+          </mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" class="example-card">
+          <mat-card-header>
+            <mat-card-title>Signal Forms</mat-card-title>
+            <mat-card-subtitle>form() + fpPostCode</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <fp-signal-live-field label="Postal code (Signal Forms)" [field]="signalForm().postCode" />
+            <fp-code-example title="Signal Forms" [code]="signalCode()" />
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <h2>Test cases</h2>
+      <p>Every unit-test case. Apply one to fill both fields and set its options.</p>
+      <fp-cases-table [rows]="caseRows" (applied)="applyCase($event)" />
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -83,15 +83,18 @@
               "projects/sandbox/src/styles.scss"
             ],
             "server": "projects/sandbox/src/main.server.ts",
-            "outputMode": "static"
+            "outputMode": "static",
+            "allowedCommonJsDependencies": [
+              "prismjs"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "900kB",
+                  "maximumError": "1.5MB"
                 },
                 {
                   "type": "anyComponentStyle",
