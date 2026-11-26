@@ -3,7 +3,10 @@
     "name": "core (provideFormPulse, FpLocale, FpCountry)",
     "path": "dist/ngx-formpulse/fesm2022/ngx-formpulse.mjs",
     "import": "{provideFormPulse, FpLocale, FpCountry}",
-    "ignore": ["@angular/core", "@angular/forms"],
+    "ignore": [
+      "@angular/core",
+      "@angular/forms"
+    ],
     "gzip": true,
     "limit": "1.5 KB"
   },
@@ -11,8 +14,21 @@
     "name": "locale pack (uk)",
     "path": "dist/ngx-formpulse/fesm2022/ngx-formpulse-locales-uk.mjs",
     "import": "{fpLocaleUk}",
-    "ignore": ["ngx-formpulse"],
+    "ignore": [
+      "ngx-formpulse"
+    ],
     "gzip": true,
     "limit": "1 KB"
+  },
+  {
+    "name": "core + fpPostCode (validator and data for 174 countries)",
+    "path": "dist/ngx-formpulse/fesm2022/ngx-formpulse.mjs",
+    "import": "{provideFormPulse, fpPostCode}",
+    "ignore": [
+      "@angular/core",
+      "@angular/forms"
+    ],
+    "gzip": true,
+    "limit": "6 KB"
   }
 ]

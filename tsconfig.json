@@ -17,6 +17,9 @@
       ],
       "ngx-formpulse/locales/*": [
         "./projects/ngx-formpulse/lib/locales/*/public-api.ts"
+      ],
+      "@formpulse/cases": [
+        "./projects/ngx-formpulse/unit-testing/support/cases/index.ts"
       ]
     },
     "skipLibCheck": true,

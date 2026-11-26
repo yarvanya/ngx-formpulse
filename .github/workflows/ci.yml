@@ -53,6 +53,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run check:redos
       - run: npm run build
+      - run: npm run check:package
       - run: npm run size
       - run: npm run bench
       - run: npm run e2e

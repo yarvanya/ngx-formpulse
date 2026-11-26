@@ -1,10 +1,10 @@
-import {expect, test} from './fixtures/accessibility';
+import {expect, test} from './fixtures/sandbox-test';
 
 const REPOSITORY_URL = 'https://github.com/yarvanya/ngx-formpulse';
 
 test.describe('Home page', () => {
-  test.beforeEach(async ({page}) => {
-    await page.goto('/');
+  test.beforeEach(async ({openPage}) => {
+    await openPage('/');
   });
 
   test('introduces FormPulse', async ({page}) => {

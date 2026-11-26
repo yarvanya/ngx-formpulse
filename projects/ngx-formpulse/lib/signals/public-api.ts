@@ -1,1 +1,1 @@
-export {};
+export {fpPostCode} from './post-code';

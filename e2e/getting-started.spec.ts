@@ -1,8 +1,8 @@
-import {expect, test} from './fixtures/accessibility';
+import {expect, test} from './fixtures/sandbox-test';
 
 test.describe('Getting started page', () => {
-  test.beforeEach(async ({page}) => {
-    await page.goto('/getting-started');
+  test.beforeEach(async ({openPage}) => {
+    await openPage('/getting-started');
   });
 
   test('explains installation and the English default', async ({page}) => {

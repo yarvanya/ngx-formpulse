@@ -15,5 +15,9 @@ import {FpLocale, type FpLocalePack} from 'ngx-formpulse';
  */
 export const fpLocaleEs = {
   locale: FpLocale.Es,
-  messages: {}
+  messages: {
+    fpPostCode: ({examples: [example]}) => (example === undefined
+      ? 'Introduce un código postal válido.'
+      : `Introduce un código postal válido, por ejemplo ${example}.`)
+  }
 } as const satisfies FpLocalePack;

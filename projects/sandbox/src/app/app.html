@@ -1,26 +1,59 @@
-<a class="skip-link" href="#main-content">Skip to main content</a>
+<a class="skip-link" href="#main-content" (click)="skipToMainContent($event, mainContent)">Skip to main content</a>
 
-<header class="site-header">
-  <a class="brand" routerLink="/">FormPulse</a>
-  <nav aria-label="Main">
-    <ul class="navigation">
-      <li>
-        <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{exact: true}">Home</a>
-      </li>
-      <li>
-        <a routerLink="/getting-started" routerLinkActive="active" ariaCurrentWhenActive="page">Getting started</a>
-      </li>
-    </ul>
-  </nav>
-</header>
+<mat-toolbar class="top-bar">
+  @if (!isWideScreen()) {
+    <button mat-icon-button type="button" aria-label="Open navigation" (click)="isNavigationOpenOnNarrowScreen.set(true)">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
+  <a class="brand" routerLink="/">
+    <span class="brand-mark" aria-hidden="true"><mat-icon>monitor_heart</mat-icon></span>
+    <span class="brand-name">Form<span class="brand-accent">Pulse</span></span>
+  </a>
+  <span class="release-badge">pre-1.0</span>
+  <span class="toolbar-spacer"></span>
+  <a mat-icon-button target="_blank" rel="noopener noreferrer" matTooltip="Source code on GitHub" [href]="repositoryUrl">
+    <mat-icon>code</mat-icon>
+    <span class="visually-hidden">Source code on GitHub (opens in a new tab)</span>
+  </a>
+</mat-toolbar>
 
-<main id="main-content" tabindex="-1">
-  <router-outlet />
-</main>
+<mat-sidenav-container class="layout">
+  <mat-sidenav
+    class="side-navigation"
+    [mode]="isWideScreen() ? 'side' : 'over'"
+    [opened]="isNavigationOpen()"
+    (closedStart)="closeNavigationOnNarrowScreen()">
+    <nav aria-label="Main">
+      @for (navigationSection of navigationSections; track navigationSection.title) {
+        <h2 class="navigation-title">{{ navigationSection.title }}</h2>
+        <mat-nav-list>
+          @for (navigationLink of navigationSection.links; track navigationLink.path) {
+            <a
+              mat-list-item
+              routerLinkActive="active-link"
+              ariaCurrentWhenActive="page"
+              [routerLink]="navigationLink.path"
+              [routerLinkActiveOptions]="{exact: navigationLink.path === '/'}"
+              (click)="closeNavigationOnNarrowScreen()">
+              <mat-icon matListItemIcon aria-hidden="true">{{ navigationLink.icon }}</mat-icon>
+              <span matListItemTitle>{{ navigationLink.label }}</span>
+            </a>
+          }
+        </mat-nav-list>
+      }
+    </nav>
+  </mat-sidenav>
 
-<footer class="site-footer">
-  <p>
-    FormPulse is MIT licensed.
-    <a [href]="repositoryUrl" target="_blank" rel="noopener noreferrer">Source code on GitHub<span class="visually-hidden"> (opens in a new tab)</span></a>
-  </p>
-</footer>
+  <mat-sidenav-content>
+    <main #mainContent id="main-content" tabindex="-1">
+      <router-outlet />
+    </main>
+    <footer class="site-footer">
+      <p>
+        FormPulse is MIT licensed.
+        <a [href]="repositoryUrl" target="_blank" rel="noopener noreferrer">Source code on GitHub<span class="visually-hidden"> (opens in a new tab)</span></a>
+      </p>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

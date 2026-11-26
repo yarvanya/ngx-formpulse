@@ -15,5 +15,9 @@ import {FpLocale, type FpLocalePack} from 'ngx-formpulse';
  */
 export const fpLocaleUk = {
   locale: FpLocale.Uk,
-  messages: {}
+  messages: {
+    fpPostCode: ({examples: [example]}) => (example === undefined
+      ? 'Введіть коректний поштовий індекс.'
+      : `Введіть коректний поштовий індекс, наприклад ${example}.`)
+  }
 } as const satisfies FpLocalePack;

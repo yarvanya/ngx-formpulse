@@ -1,3 +1,5 @@
+import type {FpPostCodeError} from '../validators/post-code/post-code';
+
 /**
  * Maps every FormPulse validator key (e.g. `fpPostCode`) to the type of its error.
  *
@@ -11,7 +13,9 @@
  *
  * @see https://github.com/yarvanya/ngx-formpulse#errors
  */
-export interface FpErrorMap {}
+export interface FpErrorMap {
+  readonly fpPostCode: FpPostCodeError;
+}
 
 /**
  * Key of a FormPulse validator; equals the error key in `control.errors`.

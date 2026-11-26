@@ -1,0 +1,6 @@
+<mat-form-field appearance="outline" class="live-field">
+  <mat-label>{{ label() }}</mat-label>
+  <input matInput type="text" autocomplete="off" [formControl]="control()">
+  <mat-error>{{ errors() | formControlsErrorsResolver }}</mat-error>
+</mat-form-field>
+<fp-error-view [errors]="errors()" />

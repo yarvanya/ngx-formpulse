@@ -1,19 +1,33 @@
 <h1>Getting started</h1>
+<p class="page-lead">Three steps from install to localized validation messages.</p>
 
-<h2>1. Install</h2>
-<pre><code>{{ installCommand }}</code></pre>
-<p>FormPulse has no runtime dependencies. It needs only <code>&#64;angular/core</code> and <code>&#64;angular/forms</code>.</p>
+<mat-card appearance="outlined" class="step-card">
+  <mat-card-content>
+    <span class="step-number" aria-hidden="true">1</span>
+    <h2>1. Install</h2>
+    <fp-code-example title="Terminal" language="bash" [code]="installCommand" />
+    <p>FormPulse has no runtime dependencies. It needs only <code>&#64;angular/core</code> and <code>&#64;angular/forms</code>.</p>
+  </mat-card-content>
+</mat-card>
 
-<h2>2. Use a validator</h2>
-<p>
-  No setup is required. Import a validator and add it to a control; every error message is
-  English by default.
-</p>
+<mat-card appearance="outlined" class="step-card">
+  <mat-card-content>
+    <span class="step-number" aria-hidden="true">2</span>
+    <h2>2. Use a validator</h2>
+    <p>No setup is required. Import a validator and add it to a control; every error message is English by default.</p>
+    <fp-code-example title="Usage" [code]="usageExample" />
+  </mat-card-content>
+</mat-card>
 
-<h2>3. Change the language (optional)</h2>
-<p>
-  Register the locale packs you need and choose the default locale. Packs you do not import never
-  reach your bundle. A single validator can still override the locale inline.
-</p>
-<pre><code>{{ localeExample }}</code></pre>
-<p>Available locales: English, Ukrainian, Spanish, Portuguese, Polish, German, French.</p>
+<mat-card appearance="outlined" class="step-card">
+  <mat-card-content>
+    <span class="step-number" aria-hidden="true">3</span>
+    <h2>3. Change the language (optional)</h2>
+    <p>
+      Register the locale packs you need and choose the default locale. Packs you do not import never
+      reach your bundle. A single validator can still override the locale inline.
+    </p>
+    <fp-code-example title="app.config.ts" [code]="localeExample" />
+    <p>Available locales: English, Ukrainian, Spanish, Portuguese, Polish, German, French.</p>
+  </mat-card-content>
+</mat-card>

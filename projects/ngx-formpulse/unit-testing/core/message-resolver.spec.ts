@@ -4,15 +4,15 @@ import type {FpLocalePack} from '../../lib/core/fp-locale-pack';
 import {resetFormPulseConfig, setFormPulseConfig} from '../../lib/core/form-pulse-registry';
 import {type MessageRequest, resolveMessage} from '../../lib/core/message-resolver';
 
-const VALIDATOR_KEY = 'fpTest';
+const VALIDATOR_KEY = 'fpPostCode';
+const UNKNOWN_VALIDATOR_KEY = 'fpUnknown';
 const ENGLISH_MESSAGE = 'Expected {expectedFormat} for {country}.';
 const ENGLISH_RESULT = 'Expected NNNNN for UA.';
 const ERROR_PARAMETERS = {country: 'UA', expectedFormat: 'NNNNN'};
-const UKRAINIAN_MESSAGES: Readonly<Record<string, string>> = {fpTest: 'Очікується {expectedFormat}.'};
 const UKRAINIAN_RESULT = 'Очікується NNNNN.';
-const UKRAINIAN_PACK: FpLocalePack = {locale: FpLocale.Uk, messages: UKRAINIAN_MESSAGES};
-const GERMAN_PACK: FpLocalePack = {locale: FpLocale.De, messages: {}};
-const GLOBAL_MESSAGES: Readonly<Record<string, string>> = {fpTest: 'Global {country}.'};
+const UKRAINIAN_PACK: FpLocalePack = {locale: FpLocale.Uk, messages: {fpPostCode: 'Очікується {expectedFormat}.'}};
+const GERMAN_PACK: FpLocalePack = {locale: FpLocale.De, messages: {fpPostCode: 'Erwartet {expectedFormat}.'}};
+const GLOBAL_MESSAGES = {fpPostCode: 'Global {country}.'};
 const GLOBAL_RESULT = 'Global UA.';
 const INLINE_MESSAGE = 'Inline {expectedFormat}.';
 const INLINE_RESULT = 'Inline NNNNN.';
@@ -46,7 +46,7 @@ describe('resolveMessage', () => {
 
   it('returns English when the pack has no message for the validator', () => {
     setFormPulseConfig({locale: FpLocale.De, locales: [GERMAN_PACK]});
-    expect(resolveMessage(createRequest())).toBe(ENGLISH_RESULT);
+    expect(resolveMessage(createRequest({validatorKey: UNKNOWN_VALIDATOR_KEY}))).toBe(ENGLISH_RESULT);
   });
 
   it('returns English for an inline English locale', () => {
@@ -62,6 +62,10 @@ describe('resolveMessage', () => {
   it('prefers an inline message over a global override', () => {
     setFormPulseConfig({messages: GLOBAL_MESSAGES});
     expect(resolveMessage(createRequest({inlineMessage: INLINE_MESSAGE}))).toBe(INLINE_RESULT);
+  });
+
+  it('uses the text of a message function as is, without placeholders', () => {
+    expect(resolveMessage(createRequest({englishMessage: () => 'Computed {country}.'}))).toBe('Computed {country}.');
   });
 
   it('calls a message function with the error parameters', () => {

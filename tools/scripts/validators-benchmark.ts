@@ -1,5 +1,7 @@
 import {isEmptyValue} from '../../projects/ngx-formpulse/lib/core/empty-value';
 import {resolveMessage} from '../../projects/ngx-formpulse/lib/core/message-resolver';
+import {FpCountry} from '../../projects/ngx-formpulse/lib/enums/fp-country';
+import {checkPostCode} from '../../projects/ngx-formpulse/lib/validators/post-code/post-code';
 import {type BenchmarkCase, runBenchmarks} from '../lib/benchmark/benchmark-runner';
 
 const FAILURE_EXIT_CODE = 1;
@@ -9,6 +11,18 @@ const BENCHMARK_CASES: readonly BenchmarkCase[] = [
   {
     name: 'resolveMessage',
     run: () => resolveMessage({validatorKey: 'fpBenchmark', englishMessage: 'Expected {expectedFormat}.', errorParameters: {expectedFormat: 'NNNNN'}})
+  },
+  {
+    name: 'fpPostCode (GB, valid)',
+    run: () => checkPostCode('SW1A 1AA', FpCountry.GB, {})
+  },
+  {
+    name: 'fpPostCode (UA, invalid with message)',
+    run: () => checkPostCode('0100', FpCountry.UA, {})
+  },
+  {
+    name: 'fpPostCode (any country, invalid)',
+    run: () => checkPostCode('%%%', null, {})
   },
   {
     name: 'isEmptyValue',
