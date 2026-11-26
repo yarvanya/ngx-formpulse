@@ -64,8 +64,8 @@ describe('resolveMessage', () => {
     expect(resolveMessage(createRequest({inlineMessage: INLINE_MESSAGE}))).toBe(INLINE_RESULT);
   });
 
-  it('calls an English message function with the error parameters', () => {
-    expect(resolveMessage(createRequest({englishMessage: () => 'Computed {country}.'}))).toBe('Computed UA.');
+  it('uses the text of a message function as is, without placeholders', () => {
+    expect(resolveMessage(createRequest({englishMessage: () => 'Computed {country}.'}))).toBe('Computed {country}.');
   });
 
   it('calls a message function with the error parameters', () => {

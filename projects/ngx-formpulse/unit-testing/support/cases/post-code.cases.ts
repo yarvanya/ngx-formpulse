@@ -35,5 +35,14 @@ export const POST_CODE_CASES: readonly PostCodeCase[] = [
   {description: 'symbols in any-country mode', value: '%%%', country: null, strict: false, isValid: false},
   {description: 'an empty value', value: '', country: FpCountry.UA, strict: false, isValid: true},
   {description: 'null', value: null, country: FpCountry.UA, strict: false, isValid: true},
-  {description: 'a number instead of text', value: UNSUPPORTED_NUMBER_VALUE, country: FpCountry.UA, strict: false, isValid: false}
+  {description: 'a number instead of text', value: UNSUPPORTED_NUMBER_VALUE, country: FpCountry.UA, strict: false, isValid: false},
+  {description: 'spaces only', value: '   ', country: FpCountry.UA, strict: false, isValid: false},
+  {description: 'spaces only in strict mode', value: '   ', country: FpCountry.UA, strict: true, isValid: false},
+  {description: 'spaces only in any-country mode', value: '   ', country: null, strict: false, isValid: false},
+  {description: 'spaces only for a country without postal codes', value: '   ', country: FpCountry.AE, strict: false, isValid: false},
+  {description: 'a non-breaking space in any-country mode', value: ' ', country: null, strict: false, isValid: false},
+  {description: 'British postcode with a non-ASCII long s', value: 'ſw1a 1aa', country: FpCountry.GB, strict: false, isValid: false},
+  {description: 'British postcode with two inner spaces', value: 'SW1A  1AA', country: FpCountry.GB, strict: false, isValid: false},
+  {description: 'British postcode in lower case in any-country mode', value: 'sw1a 1aa', country: null, strict: false, isValid: true},
+  {description: 'any value for a country missing from the data', value: 'ANYTHING', country: FpCountry.CU, strict: false, isValid: true}
 ];

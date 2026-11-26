@@ -24,12 +24,19 @@ describe('fpPostCode (Reactive Forms)', () => {
     expect(control.value).toBe(' sw1a 1aa ');
   });
 
-  it('accepts only FpCountry members and typed options', () => {
+  it('treats a null country as any country and keeps the options', () => {
+    const control = new FormControl('sw1a 1aa', [fpPostCode(null, {strict: true})]);
+    expect(control.errors).toEqual({fpPostCode: {country: null, examples: [], message: 'Enter a valid postal code.'}});
+  });
+
+  it('accepts only FpCountry members, null and typed options', () => {
     expectTypeOf(fpPostCode).toBeCallableWith();
     expectTypeOf(fpPostCode).toBeCallableWith(FpCountry.UA);
+    expectTypeOf(fpPostCode).toBeCallableWith(null);
     expectTypeOf(fpPostCode).toBeCallableWith(FpCountry.UA, {strict: true, locale: FpLocale.Uk});
+    expectTypeOf(fpPostCode).toBeCallableWith(null, {strict: true});
     expectTypeOf(fpPostCode).toBeCallableWith({message: 'Wrong code.'});
-    expectTypeOf<'UA'>().not.toExtend<FpCountry>();
+    expectTypeOf<'UA'>().not.toExtend<FpCountry | FpPostCodeOptions | null | undefined>();
     expectTypeOf<{strict: 'yes'}>().not.toExtend<FpPostCodeOptions>();
     expectTypeOf(fpPostCode(FpCountry.UA)).toEqualTypeOf<ValidatorFn>();
   });

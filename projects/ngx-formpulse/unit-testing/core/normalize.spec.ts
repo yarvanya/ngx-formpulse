@@ -18,4 +18,8 @@ describe('normalizeLetterCase', () => {
   it('keeps the value unchanged in strict mode', () => {
     expect(normalizeLetterCase('sw1a 1aa', true)).toBe('sw1a 1aa');
   });
+
+  it('upper-cases ASCII letters only', () => {
+    expect(normalizeLetterCase('ſw1a ﬀ é', false)).toBe('ſW1A ﬀ é');
+  });
 });
