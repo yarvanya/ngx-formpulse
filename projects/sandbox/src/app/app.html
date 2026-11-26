@@ -1,0 +1,26 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="site-header">
+  <a class="brand" routerLink="/">FormPulse</a>
+  <nav aria-label="Main">
+    <ul class="navigation">
+      <li>
+        <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      </li>
+      <li>
+        <a routerLink="/getting-started" routerLinkActive="active" ariaCurrentWhenActive="page">Getting started</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main-content" tabindex="-1">
+  <router-outlet />
+</main>
+
+<footer class="site-footer">
+  <p>
+    FormPulse is MIT licensed.
+    <a [href]="repositoryUrl" target="_blank" rel="noopener noreferrer">Source code on GitHub<span class="visually-hidden"> (opens in a new tab)</span></a>
+  </p>
+</footer>
