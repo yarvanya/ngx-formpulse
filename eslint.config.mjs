@@ -5,7 +5,7 @@ import jsdoc from 'eslint-plugin-jsdoc';
 import unicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import {formPulsePlugin} from './tools/eslint-plugin-formpulse/index.mjs';
+import {formPulsePlugin} from './tools/lib/eslint-plugin-formpulse/index.mjs';
 
 const ALLOWED_ABBREVIATIONS = {
   fp: true,
@@ -33,9 +33,9 @@ const PUBLIC_API_CONTEXTS = [
 ];
 
 const FILES_TYPED_BY_EMPTY_ERROR_MAP_UNTIL_FIRST_VALIDATOR = [
-  'projects/ngx-formpulse/src/lib/core/fp-error-map.ts',
-  'projects/ngx-formpulse/src/lib/core/fp-locale-pack.ts',
-  'projects/ngx-formpulse/src/lib/core/core-types.test-d.ts'
+  'projects/ngx-formpulse/lib/core/fp-error-map.ts',
+  'projects/ngx-formpulse/lib/core/fp-locale-pack.ts',
+  'projects/ngx-formpulse/unit-testing/core/fp-locale-pack.spec.ts'
 ];
 
 const sharedRules = {
@@ -127,8 +127,7 @@ export default tseslint.config(
     }
   },
   {
-    files: ['projects/ngx-formpulse/**/*.ts'],
-    ignores: ['**/*.spec.ts', '**/*.test-d.ts', '**/testing/**'],
+    files: ['projects/ngx-formpulse/lib/**/*.ts'],
     plugins: {jsdoc},
     settings: {
       jsdoc: {mode: 'typescript', tagNamePreference: {template: 'typeParam'}}
@@ -152,15 +151,14 @@ export default tseslint.config(
     }
   },
   {
-    files: ['projects/ngx-formpulse/src/lib/core/**/*.ts'],
-    ignores: ['**/*.spec.ts', '**/*.test-d.ts'],
+    files: ['projects/ngx-formpulse/lib/core/**/*.ts'],
     rules: {
       'no-restricted-imports': ['error', {patterns: [{group: ['@angular/*', 'rxjs', 'rxjs/*'], message: 'Core files must stay framework-agnostic.'}]}]
     }
   },
   {
-    files: ['projects/ngx-formpulse/src/**/*.ts', 'projects/ngx-formpulse/locales/**/*.ts'],
-    ignores: ['**/*.spec.ts'],
+    files: ['projects/ngx-formpulse/lib/**/*.ts'],
+    ignores: ['projects/ngx-formpulse/lib/signals/**'],
     rules: {
       'no-restricted-imports': ['error', {paths: [{name: '@angular/forms/signals', message: 'Only ngx-formpulse/signals may import Signal Forms.'}]}]
     }

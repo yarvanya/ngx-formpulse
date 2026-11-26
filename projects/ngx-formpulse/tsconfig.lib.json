@@ -4,6 +4,7 @@
     "declaration": true,
     "types": []
   },
-  "include": ["**/*.ts"],
-  "exclude": ["**/*.spec.ts", "**/*.test-d.ts", "**/testing/**"]
+  "include": [
+    "lib/**/*.ts"
+  ]
 }
