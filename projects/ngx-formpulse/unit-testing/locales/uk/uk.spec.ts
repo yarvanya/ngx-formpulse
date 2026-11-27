@@ -20,4 +20,8 @@ describe('fpLocaleUk', () => {
   it('translates fpPostCode without an example', () => {
     expect(fpLocaleUk.messages.fpPostCode({country: null, examples: []})).toBe('Введіть коректний поштовий індекс.');
   });
+
+  it('translates fpEmail', () => {
+    expect(fpLocaleUk.messages.fpEmail).toBe('Введіть коректну адресу електронної пошти, наприклад name@example.com.');
+  });
 });

@@ -18,6 +18,7 @@ export const fpLocaleUk = {
   messages: {
     fpPostCode: ({examples: [example]}) => (example === undefined
       ? 'Введіть коректний поштовий індекс.'
-      : `Введіть коректний поштовий індекс, наприклад ${example}.`)
+      : `Введіть коректний поштовий індекс, наприклад ${example}.`),
+    fpEmail: 'Введіть коректну адресу електронної пошти, наприклад name@example.com.'
   }
 } as const satisfies FpLocalePack;

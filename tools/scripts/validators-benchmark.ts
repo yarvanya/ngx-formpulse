@@ -1,6 +1,7 @@
 import {isEmptyValue} from '../../projects/ngx-formpulse/lib/core/empty-value';
 import {resolveMessage} from '../../projects/ngx-formpulse/lib/core/message-resolver';
 import {FpCountry} from '../../projects/ngx-formpulse/lib/enums/fp-country';
+import {checkEmail} from '../../projects/ngx-formpulse/lib/validators/email/email';
 import {checkPostCode} from '../../projects/ngx-formpulse/lib/validators/post-code/post-code';
 import {type BenchmarkCase, runBenchmarks} from '../lib/benchmark/benchmark-runner';
 
@@ -23,6 +24,14 @@ const BENCHMARK_CASES: readonly BenchmarkCase[] = [
   {
     name: 'fpPostCode (any country, invalid)',
     run: () => checkPostCode('%%%', null, {})
+  },
+  {
+    name: 'fpEmail (valid)',
+    run: () => checkEmail('ivan.petrenko+news@mail.example.com.ua', {})
+  },
+  {
+    name: 'fpEmail (invalid with message)',
+    run: () => checkEmail('name@company', {})
   },
   {
     name: 'isEmptyValue',

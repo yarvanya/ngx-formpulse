@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline" class="live-field">
+<mat-form-field appearance="outline" class="live-field" subscriptSizing="dynamic">
   <mat-label>{{ label() }}</mat-label>
   <input matInput type="text" autocomplete="off" [formControl]="control()">
   <mat-error>{{ errors() | formControlsErrorsResolver }}</mat-error>

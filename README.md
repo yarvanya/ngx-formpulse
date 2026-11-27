@@ -25,6 +25,36 @@ Requires Angular 22.
 
 ## Validators
 
+### fpEmail
+
+Validates an email address: the HTML5 `type=email` grammar tightened with the RFC rules.
+
+```ts
+import {FormControl} from '@angular/forms';
+import {fpEmail} from 'ngx-formpulse';
+
+new FormControl('', [fpEmail()]);
+new FormControl('', [fpEmail({strict: true})]);
+```
+
+Signal Forms:
+
+```ts
+import {form} from '@angular/forms/signals';
+import {fpEmail} from 'ngx-formpulse/signals';
+
+form(model, (path) => {
+  fpEmail(path.email);
+});
+```
+
+- Error `errors.fpEmail`: `{message}`.
+- Before `@`: 1–64 characters of RFC 5322 `atext`; dots only between characters.
+- Domain: labels of letters, digits and inner hyphens (1–63 each); a top-level domain of 2+ letters or punycode (`xn--…`) is required, so `user@company` is invalid.
+- The address has at most 254 characters. ASCII only; quoted parts, IP addresses and display names are invalid.
+- Empty values are valid; a value of spaces only is invalid. Surrounding spaces are ignored unless `strict: true`.
+- Checks the format, not that the mailbox exists.
+
 ### fpPostCode
 
 Validates a postal code against the format of one country, or of any supported country.

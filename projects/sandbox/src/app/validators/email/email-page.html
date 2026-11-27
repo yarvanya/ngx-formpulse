@@ -1,0 +1,110 @@
+<header class="validator-header">
+  <span class="validator-icon" aria-hidden="true"><mat-icon>alternate_email</mat-icon></span>
+  <div>
+    <h1>fpEmail</h1>
+    <p class="page-lead">Email addresses people really use, without the typos that the browser and Validators.email let through.</p>
+    <mat-chip-set aria-label="Highlights">
+      <mat-chip disableRipple>Reactive Forms</mat-chip>
+      <mat-chip disableRipple>Signal Forms</mat-chip>
+      <mat-chip disableRipple>7 languages</mat-chip>
+      <mat-chip disableRipple>HTML5 + RFC 5321 / 5322</mat-chip>
+    </mat-chip-set>
+  </div>
+</header>
+
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="150ms" class="validator-tabs">
+  <mat-tab label="Description">
+    <div class="tab-body">
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>What it does</h2>
+          <ul class="feature-list">
+            <li>Follows the HTML5 <code>type=email</code> grammar, tightened with the RFC rules for dots and lengths.</li>
+            <li>Requires a top-level domain: <code>user&#64;company</code> is invalid, <code>user&#64;company.com</code> is valid.</li>
+            <li>Rejects a dot at the start, at the end or twice in a row before <code>&#64;</code>.</li>
+            <li>ASCII only; an international domain is accepted in punycode, such as <code>xn--j1amh</code>, the punycode form of the Ukrainian .ukr domain.</li>
+            <li>Empty values are valid; combine with a required validator for mandatory fields. A value of spaces only is invalid.</li>
+            <li>Tolerant by default: surrounding spaces are ignored. <code>strict: true</code> checks the value exactly as entered.</li>
+            <li>The control value is never modified.</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="card-grid">
+        <fp-code-example title="Reactive Forms" [code]="importReactive" />
+        <fp-code-example title="Signal Forms" [code]="importSignals" />
+      </div>
+
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>Error object</h2>
+          <p>Every failure reports a typed error with a ready, localized message.</p>
+          <fp-code-example title="Error" [code]="errorExample" />
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card appearance="filled" class="standards-note">
+        <aside aria-label="Standards">
+          <mat-card-content>
+            <h2>Standards</h2>
+            <ul class="feature-list">
+              @for (standard of standards; track standard.url) {
+                <li>
+                  <a [href]="standard.url" target="_blank" rel="noopener noreferrer">{{ standard.name }}<span class="visually-hidden"> (opens in a new tab)</span></a>: {{ standard.topic }}
+                </li>
+              }
+            </ul>
+            <p>FormPulse checks the format, not that the mailbox exists.</p>
+          </mat-card-content>
+        </aside>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="API">
+    <div class="tab-body">
+      <fp-email-api />
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Examples">
+    <div class="tab-body">
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>Options</h2>
+          <div class="options-panel">
+            <fp-locale-switcher [(locale)]="locale" />
+            <mat-slide-toggle [checked]="isStrict()" (change)="isStrict.set($event.checked)">Strict matching</mat-slide-toggle>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="card-grid">
+        <mat-card appearance="outlined" class="example-card">
+          <mat-card-header>
+            <mat-card-title>Reactive Forms</mat-card-title>
+            <mat-card-subtitle>FormControl + fpEmail</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <fp-reactive-live-field label="Email (Reactive Forms)" [control]="reactiveControl" />
+            <fp-code-example title="Reactive Forms" [code]="reactiveCode()" />
+          </mat-card-content>
+        </mat-card>
+        <mat-card appearance="outlined" class="example-card">
+          <mat-card-header>
+            <mat-card-title>Signal Forms</mat-card-title>
+            <mat-card-subtitle>form() + fpEmail</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <fp-signal-live-field label="Email (Signal Forms)" [field]="signalForm.email" />
+            <fp-code-example title="Signal Forms" [code]="signalCode()" />
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <h2>Test cases</h2>
+      <p>Every unit-test case. Apply one to fill both fields and set its options.</p>
+      <fp-cases-table [rows]="caseRows" (applied)="applyCase($event)" />
+    </div>
+  </mat-tab>
+</mat-tab-group>

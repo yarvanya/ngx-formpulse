@@ -1,3 +1,4 @@
+import type {FpEmailError} from '../validators/email/email';
 import type {FpPostCodeError} from '../validators/post-code/post-code';
 
 /**
@@ -14,6 +15,7 @@ import type {FpPostCodeError} from '../validators/post-code/post-code';
  * @see https://github.com/yarvanya/ngx-formpulse#errors
  */
 export interface FpErrorMap {
+  readonly fpEmail: FpEmailError;
   readonly fpPostCode: FpPostCodeError;
 }
 

@@ -7,6 +7,11 @@ import {MatExpansionModule} from '@angular/material/expansion';
   imports: [JsonPipe, MatExpansionModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: `
+    :host {
+      display: block;
+      margin-top: var(--fp-space-medium);
+    }
+
     pre {
       margin: 0;
       overflow-x: auto;

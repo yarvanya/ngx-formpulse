@@ -77,3 +77,14 @@
   scroll-margin-top: 64px;
   margin-bottom: var(--fp-space-extra-large);
 }
+
+.standards-note {
+  border-radius: var(--fp-radius);
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
+
+  a {
+    color: inherit;
+    font-weight: 600;
+  }
+}
