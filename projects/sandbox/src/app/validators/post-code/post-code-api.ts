@@ -8,21 +8,17 @@ import {ApiTable} from '../../validator-page/api-table';
 import {isObject, isString} from '../../utilities/core.utility';
 import {CodeExample} from '../../validator-page/code-example';
 import {type ReferenceColumn, type ReferenceRow, ReferenceTable} from '../../validator-page/reference-table';
+import {FORM_PULSE_CONFIG_ROWS, MESSAGE_PRIORITY, PROVIDE_FORM_PULSE_EXAMPLE, PROVIDE_FORM_PULSE_SIGNATURE, RELATED_TYPE_ROWS} from '../../validator-page/form-pulse-documentation';
 import {
-  FORM_PULSE_CONFIG_ROWS,
   POST_CODE_BEHAVIOUR,
   POST_CODE_ERROR_EXAMPLE,
   POST_CODE_ERROR_ROWS,
   POST_CODE_IMPORT_ROWS,
   POST_CODE_MESSAGE_FORMS,
-  POST_CODE_MESSAGE_PRIORITY,
   POST_CODE_OPTION_ROWS,
   POST_CODE_PARAMETER_ROWS,
   POST_CODE_REACTIVE_SIGNATURES,
-  POST_CODE_SIGNAL_SIGNATURES,
-  PROVIDE_FORM_PULSE_EXAMPLE,
-  PROVIDE_FORM_PULSE_SIGNATURE,
-  RELATED_TYPE_ROWS
+  POST_CODE_SIGNAL_SIGNATURES
 } from './post-code-documentation';
 
 const LANGUAGE_NAMES = new Intl.DisplayNames(['en'], {type: 'language'});
@@ -118,7 +114,7 @@ export class PostCodeApi {
   protected readonly errorRows = POST_CODE_ERROR_ROWS;
   protected readonly errorExample = POST_CODE_ERROR_EXAMPLE;
   protected readonly behaviour = POST_CODE_BEHAVIOUR;
-  protected readonly messagePriority = POST_CODE_MESSAGE_PRIORITY;
+  protected readonly messagePriority = MESSAGE_PRIORITY;
   protected readonly messageForms = POST_CODE_MESSAGE_FORMS;
   protected readonly provideSignature = PROVIDE_FORM_PULSE_SIGNATURE;
   protected readonly provideExample = PROVIDE_FORM_PULSE_EXAMPLE;

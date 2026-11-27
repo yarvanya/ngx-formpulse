@@ -20,6 +20,7 @@ export const NAVIGATION_SECTIONS: readonly NavigationSection[] = [
   {
     title: 'Validators',
     links: [
+      {label: 'fpEmail', path: '/validators/email', icon: 'alternate_email'},
       {label: 'fpPostCode', path: '/validators/post-code', icon: 'markunread_mailbox'}
     ]
   }
