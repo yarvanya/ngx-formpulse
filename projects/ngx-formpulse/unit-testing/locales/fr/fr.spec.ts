@@ -20,4 +20,8 @@ describe('fpLocaleFr', () => {
   it('translates fpPostCode without an example', () => {
     expect(fpLocaleFr.messages.fpPostCode({country: null, examples: []})).toBe('Saisissez un code postal valide.');
   });
+
+  it('translates fpEmail', () => {
+    expect(fpLocaleFr.messages.fpEmail).toBe('Saisissez une adresse e-mail valide, par exemple name@example.com.');
+  });
 });
