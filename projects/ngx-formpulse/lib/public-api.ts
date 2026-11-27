@@ -7,5 +7,7 @@ export type {FpMessage} from './core/fp-message';
 export type {FpBaseOptions} from './core/fp-options';
 export {FpCountry} from './enums/fp-country';
 export {provideFormPulse} from './provide-form-pulse';
+export type {FpEmailError, FpEmailOptions} from './validators/email/email';
+export {fpEmail} from './validators/email/email.reactive';
 export type {FpPostCodeError, FpPostCodeOptions} from './validators/post-code/post-code';
 export {fpPostCode} from './validators/post-code/post-code.reactive';

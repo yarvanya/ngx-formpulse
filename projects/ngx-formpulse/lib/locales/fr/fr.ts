@@ -18,6 +18,7 @@ export const fpLocaleFr = {
   messages: {
     fpPostCode: ({examples: [example]}) => (example === undefined
       ? 'Saisissez un code postal valide.'
-      : `Saisissez un code postal valide, par exemple ${example}.`)
+      : `Saisissez un code postal valide, par exemple ${example}.`),
+    fpEmail: 'Saisissez une adresse e-mail valide, par exemple name@example.com.'
   }
 } as const satisfies FpLocalePack;
