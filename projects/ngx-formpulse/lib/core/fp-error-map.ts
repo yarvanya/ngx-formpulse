@@ -1,5 +1,6 @@
 import type {FpEmailError} from '../validators/email/email';
 import type {FpPostCodeError} from '../validators/post-code/post-code';
+import type {FpRequiredError} from '../validators/required/required';
 
 /**
  * Maps every FormPulse validator key (e.g. `fpPostCode`) to the type of its error.
@@ -17,6 +18,7 @@ import type {FpPostCodeError} from '../validators/post-code/post-code';
 export interface FpErrorMap {
   readonly fpEmail: FpEmailError;
   readonly fpPostCode: FpPostCodeError;
+  readonly fpRequired: FpRequiredError;
 }
 
 /**

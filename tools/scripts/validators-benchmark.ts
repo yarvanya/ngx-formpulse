@@ -3,6 +3,7 @@ import {resolveMessage} from '../../projects/ngx-formpulse/lib/core/message-reso
 import {FpCountry} from '../../projects/ngx-formpulse/lib/enums/fp-country';
 import {checkEmail} from '../../projects/ngx-formpulse/lib/validators/email/email';
 import {checkPostCode} from '../../projects/ngx-formpulse/lib/validators/post-code/post-code';
+import {checkRequired} from '../../projects/ngx-formpulse/lib/validators/required/required';
 import {type BenchmarkCase, runBenchmarks} from '../lib/benchmark/benchmark-runner';
 
 const FAILURE_EXIT_CODE = 1;
@@ -32,6 +33,14 @@ const BENCHMARK_CASES: readonly BenchmarkCase[] = [
   {
     name: 'fpEmail (invalid with message)',
     run: () => checkEmail('name@company', {})
+  },
+  {
+    name: 'fpRequired (filled)',
+    run: () => checkRequired('Ivan', {})
+  },
+  {
+    name: 'fpRequired (missing with message)',
+    run: () => checkRequired('   ', {})
   },
   {
     name: 'isEmptyValue',

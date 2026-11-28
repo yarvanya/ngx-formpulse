@@ -7,6 +7,9 @@ All notable changes to `ngx-formpulse` are documented here. The project follows
 
 ### Added
 
+- FP-3: `fpRequired` validator for Reactive Forms and Signal Forms: missing values per type (blank text,
+  `NaN`, invalid dates, empty collections and file lists), `0` and `false` filled, `REQUIRED` metadata in Signal
+  Forms, messages in 7 locales and a sandbox page with text, number, checkbox and multi-select examples.
 - FP-2: `fpEmail` validator for Reactive Forms and Signal Forms: HTML5 grammar with RFC dot and length
   rules, required top-level domain, ASCII only, messages in 7 locales and a sandbox page with a comparison.
 - FP-1: `fpPostCode` validator for Reactive Forms and Signal Forms with postal-code data for 174
