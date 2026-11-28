@@ -22,6 +22,11 @@ export const routes: Routes = [
     loadComponent: async () => (await import('./validators/post-code/post-code-page')).PostCodePage
   },
   {
+    path: 'validators/required',
+    title: 'fpRequired | FormPulse',
+    loadComponent: async () => (await import('./validators/required/required-page')).RequiredPage
+  },
+  {
     path: '**',
     redirectTo: ''
   }

@@ -40,6 +40,6 @@ export const RELATED_TYPE_ROWS: readonly ApiRow[] = [
   {name: 'FpLocalePack', type: '{locale: FpLocale; messages: FpLocaleMessages}', required: 'Type', defaultValue: '—', description: 'Messages of one language for every validator.'},
   {name: 'FpLocaleMessages', type: '{[key in FpValidatorKey]: FpMessage}', required: 'Type', defaultValue: '—', description: 'One message per validator key.'},
   {name: 'FpMessageOverrides', type: '{[key in FpValidatorKey]?: FpMessage}', required: 'Type', defaultValue: '—', description: 'Optional application-wide messages.'},
-  {name: 'FpValidatorKey', type: '\'fpEmail\' | \'fpPostCode\'', required: 'Type', defaultValue: '—', description: 'Keys of every FormPulse validator.'},
-  {name: 'FpErrorMap', type: '{fpEmail: FpEmailError; fpPostCode: FpPostCodeError}', required: 'Type', defaultValue: '—', description: 'Validator key to error type.'}
+  {name: 'FpValidatorKey', type: '\'fpEmail\' | \'fpPostCode\' | \'fpRequired\'', required: 'Type', defaultValue: '—', description: 'Keys of every FormPulse validator.'},
+  {name: 'FpErrorMap', type: '{fpEmail: FpEmailError; fpPostCode: FpPostCodeError; fpRequired: FpRequiredError}', required: 'Type', defaultValue: '—', description: 'Validator key to error type.'}
 ];

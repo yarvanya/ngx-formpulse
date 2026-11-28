@@ -6,6 +6,7 @@ import {MatInputModule} from '@angular/material/input';
 import {ErrorView} from './error-view';
 import {FormControlsErrorsResolverPipe, type SignalFieldError} from './form-controls-errors-resolver-pipe';
 import {ShowWhileTypingErrorStateMatcher} from './show-while-typing-error-state-matcher';
+import {ValidityIndicator} from './validity-indicator';
 
 const FIELD_REFERENCES = new Set(['fieldTree', 'formField']);
 
@@ -15,7 +16,7 @@ function toPlainError(signal_error: SignalFieldError): Readonly<Record<string, u
 
 @Component({
   selector: 'fp-signal-live-field',
-  imports: [FormField, MatFormFieldModule, MatInputModule, FormControlsErrorsResolverPipe, ErrorView],
+  imports: [FormField, MatFormFieldModule, MatInputModule, FormControlsErrorsResolverPipe, ErrorView, ValidityIndicator],
   providers: [{provide: ErrorStateMatcher, useClass: ShowWhileTypingErrorStateMatcher}],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './signal-live-field.html'
