@@ -157,6 +157,16 @@ test.describe('fpPostCode page', () => {
       expect(copiedText).toContain('fpPostCode(FpCountry.UA)');
     });
 
+    test('shows a validity icon with a tooltip', async ({page}) => {
+      await typeInBothFields(page, '01001');
+      const signalFormField = page.locator('mat-form-field').filter({has: page.getByRole('textbox', {name: SIGNAL_LABEL})});
+      await signalFormField.getByRole('img', {name: 'Validity: valid'}).hover();
+      await expect(page.locator('.mat-mdc-tooltip')).toHaveText('Valid');
+      await typeInBothFields(page, '0100');
+      const reactiveFormField = page.locator('mat-form-field').filter({has: page.getByRole('textbox', {name: REACTIVE_LABEL})});
+      await expect(reactiveFormField.getByRole('img', {name: 'Validity: invalid'})).toBeVisible();
+    });
+
     test('has no accessibility violations', async ({page, expectNoAccessibilityViolations}) => {
       await typeInBothFields(page, '0100');
       await expectNoAccessibilityViolations();

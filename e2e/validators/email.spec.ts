@@ -113,6 +113,16 @@ test.describe('fpEmail page', () => {
       expect(copiedText).toContain('fpEmail()');
     });
 
+    test('shows a validity icon with a tooltip', async ({page}) => {
+      await typeInBothFields(page, 'name@company');
+      const reactiveFormField = page.locator('mat-form-field').filter({has: page.getByRole('textbox', {name: REACTIVE_LABEL})});
+      await reactiveFormField.getByRole('img', {name: 'Validity: invalid'}).hover();
+      await expect(page.locator('.mat-mdc-tooltip')).toHaveText('Invalid');
+      await typeInBothFields(page, 'name@example.com');
+      const signalFormField = page.locator('mat-form-field').filter({has: page.getByRole('textbox', {name: SIGNAL_LABEL})});
+      await expect(signalFormField.getByRole('img', {name: 'Validity: valid'})).toBeVisible();
+    });
+
     test('has no accessibility violations', async ({page, expectNoAccessibilityViolations}) => {
       await typeInBothFields(page, 'name@company');
       await expectNoAccessibilityViolations();
