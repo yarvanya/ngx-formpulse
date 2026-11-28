@@ -24,4 +24,8 @@ describe('fpLocalePl', () => {
   it('translates fpEmail', () => {
     expect(fpLocalePl.messages.fpEmail).toBe('Wpisz poprawny adres e-mail, np. name@example.com.');
   });
+
+  it('translates fpRequired', () => {
+    expect(fpLocalePl.messages.fpRequired).toBe('To pole jest wymagane.');
+  });
 });

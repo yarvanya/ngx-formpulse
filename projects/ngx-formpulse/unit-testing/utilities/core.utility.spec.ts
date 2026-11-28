@@ -1,4 +1,4 @@
-import {isFunction, isObject, isString} from '../../lib/utilities/core.utility';
+import {isFunction, isNumber, isObject, isString} from '../../lib/utilities/core.utility';
 
 const NUMBER_VALUE = 42;
 
@@ -29,5 +29,15 @@ describe('isObject', () => {
 
   it.each([null, undefined, 'text', NUMBER_VALUE])('rejects %j', (value) => {
     expect(isObject(value)).toBe(false);
+  });
+});
+
+describe('isNumber', () => {
+  it.each([0, NUMBER_VALUE, Number.NaN])('accepts %j', (value) => {
+    expect(isNumber(value)).toBe(true);
+  });
+
+  it.each([null, undefined, '1', {}])('rejects %j', (value) => {
+    expect(isNumber(value)).toBe(false);
   });
 });
