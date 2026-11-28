@@ -11,3 +11,5 @@ export type {FpEmailError, FpEmailOptions} from './validators/email/email';
 export {fpEmail} from './validators/email/email.reactive';
 export type {FpPostCodeError, FpPostCodeOptions} from './validators/post-code/post-code';
 export {fpPostCode} from './validators/post-code/post-code.reactive';
+export type {FpRequiredError, FpRequiredOptions} from './validators/required/required';
+export {fpRequired} from './validators/required/required.reactive';

@@ -24,4 +24,8 @@ describe('fpLocaleUk', () => {
   it('translates fpEmail', () => {
     expect(fpLocaleUk.messages.fpEmail).toBe('Введіть коректну адресу електронної пошти, наприклад name@example.com.');
   });
+
+  it('translates fpRequired', () => {
+    expect(fpLocaleUk.messages.fpRequired).toBe('Це поле обов’язкове.');
+  });
 });

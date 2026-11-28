@@ -19,6 +19,7 @@ export const fpLocaleEs = {
     fpPostCode: ({examples: [example]}) => (example === undefined
       ? 'Introduce un código postal válido.'
       : `Introduce un código postal válido, por ejemplo ${example}.`),
-    fpEmail: 'Introduce un correo electrónico válido, por ejemplo name@example.com.'
+    fpEmail: 'Introduce un correo electrónico válido, por ejemplo name@example.com.',
+    fpRequired: 'Este campo es obligatorio.'
   }
 } as const satisfies FpLocalePack;

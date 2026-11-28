@@ -41,5 +41,16 @@
     ],
     "gzip": true,
     "limit": "2.5 KB"
+  },
+  {
+    "name": "core + fpRequired (validator and the shared message runtime)",
+    "path": "dist/ngx-formpulse/fesm2022/ngx-formpulse.mjs",
+    "import": "{provideFormPulse, fpRequired}",
+    "ignore": [
+      "@angular/core",
+      "@angular/forms"
+    ],
+    "gzip": true,
+    "limit": "2.5 KB"
   }
 ]

@@ -19,6 +19,7 @@ export const fpLocaleDe = {
     fpPostCode: ({examples: [example]}) => (example === undefined
       ? 'Geben Sie eine gültige Postleitzahl ein.'
       : `Geben Sie eine gültige Postleitzahl ein, z. B. ${example}.`),
-    fpEmail: 'Geben Sie eine gültige E-Mail-Adresse ein, z. B. name@example.com.'
+    fpEmail: 'Geben Sie eine gültige E-Mail-Adresse ein, z. B. name@example.com.',
+    fpRequired: 'Dieses Feld ist erforderlich.'
   }
 } as const satisfies FpLocalePack;

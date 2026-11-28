@@ -87,6 +87,35 @@ form(model, (path) => {
 - Checks the format, not that the postal code exists.
 - Data: [Google libaddressinput](https://github.com/google/libaddressinput) (Apache-2.0), see `NOTICE`.
 
+### fpRequired
+
+Requires a value of any type: text, numbers, checkboxes, lists, files and dates.
+
+```ts
+import {FormControl} from '@angular/forms';
+import {fpRequired} from 'ngx-formpulse';
+
+new FormControl('', [fpRequired()]);
+new FormControl<number | null>(null, [fpRequired({message: 'Enter a quantity.'})]);
+```
+
+Signal Forms (also marks the field as required, so the input gets the `required` attribute):
+
+```ts
+import {form} from '@angular/forms/signals';
+import {fpRequired} from 'ngx-formpulse/signals';
+
+form(model, (path) => {
+  fpRequired(path.name);
+  fpRequired(path.languages);
+});
+```
+
+- Error `errors.fpRequired`: `{message}`.
+- Missing: `null`, `undefined`, empty text, text of spaces only, `NaN`, an invalid `Date`, an empty array, `Set`, `Map` or `FileList`.
+- Filled: every other value, including `0`, `false` and `{}`. An untouched checkbox (`null`) is missing; `false` is a real answer.
+- Reactive Forms: Angular shows the required marker only for its own `Validators.required`, so add a visual asterisk yourself.
+
 ## Configuration
 
 Optional. Without configuration every message is English.

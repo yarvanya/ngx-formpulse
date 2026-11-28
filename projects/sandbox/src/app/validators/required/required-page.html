@@ -1,0 +1,202 @@
+<header class="validator-header">
+  <span class="validator-icon" aria-hidden="true"><mat-icon>asterisk</mat-icon></span>
+  <div>
+    <h1>fpRequired</h1>
+    <p class="page-lead">Tells a filled field from an empty one for text, numbers, checkboxes, lists, files and dates.</p>
+    <mat-chip-set aria-label="Highlights">
+      <mat-chip disableRipple>Reactive Forms</mat-chip>
+      <mat-chip disableRipple>Signal Forms</mat-chip>
+      <mat-chip disableRipple>7 languages</mat-chip>
+      <mat-chip disableRipple>Every value type</mat-chip>
+    </mat-chip-set>
+  </div>
+</header>
+
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" animationDuration="150ms" class="validator-tabs">
+  <mat-tab label="Description">
+    <div class="tab-body">
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>What it does</h2>
+          <ul class="feature-list">
+            <li>Rejects <code>null</code>, <code>undefined</code>, empty text and text of spaces only.</li>
+            <li>Accepts <code>0</code> and <code>false</code>: a quantity of zero and the answer "no" are real values.</li>
+            <li>Rejects an untouched checkbox (<code>null</code>), an empty selection and no chosen file.</li>
+            <li>Rejects <code>NaN</code> and an invalid date; accepts any object, such as a selected record.</li>
+            <li>In Signal Forms it also marks the field as required, so the input gets the <code>required</code> attribute.</li>
+            <li>The control value is never modified.</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="card-grid">
+        <fp-code-example title="Reactive Forms" [code]="importReactive" />
+        <fp-code-example title="Signal Forms" [code]="importSignals" />
+      </div>
+
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>Required marker in Reactive Forms</h2>
+          <p>
+            Angular shows the asterisk only for its own <code>Validators.required</code>, and the <code>required</code>
+            attribute would add that validator too. Add a visual asterisk to the label; on a plain input also set
+            <code>aria-required</code> (Angular Material manages it on its own fields).
+          </p>
+          <fp-code-example title="Template" [code]="markerExample" />
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>Error object</h2>
+          <p>Every failure reports a typed error with a ready, localized message.</p>
+          <fp-code-example title="Error" [code]="errorExample" />
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="API">
+    <div class="tab-body">
+      <fp-required-api />
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Examples">
+    <div class="tab-body">
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>Options</h2>
+          <div class="options-panel">
+            <fp-locale-switcher [(locale)]="locale" />
+            <button mat-stroked-button type="button" (click)="resetCheckboxes()">Reset checkboxes to untouched</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <div class="card-grid">
+        <mat-card appearance="outlined" class="example-card">
+          <mat-card-header>
+            <mat-card-title>Reactive Forms</mat-card-title>
+            <mat-card-subtitle>FormControl + fpRequired</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="required-fields">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Name (Reactive Forms) <span aria-hidden="true">*</span></mat-label>
+              <input matInput type="text" autocomplete="off" [formControl]="nameControl">
+              <fp-validity-indicator matSuffix [isValid]="nameErrors() === null" />
+              <mat-error>{{ nameErrors() | formControlsErrorsResolver }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Quantity (Reactive Forms) <span aria-hidden="true">*</span></mat-label>
+              <input matInput type="number" autocomplete="off" [formControl]="quantityControl">
+              <fp-validity-indicator matSuffix [isValid]="quantityErrors() === null" />
+              <mat-error>{{ quantityErrors() | formControlsErrorsResolver }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Languages (Reactive Forms) <span aria-hidden="true">*</span></mat-label>
+              <mat-select multiple [formControl]="languagesControl">
+                @for (languageOption of languageOptions; track languageOption.value) {
+                  <mat-option [value]="languageOption.value">{{ languageOption.label }}</mat-option>
+                }
+              </mat-select>
+              <fp-validity-indicator matSuffix [isValid]="languagesErrors() === null" />
+              <mat-error>{{ languagesErrors() | formControlsErrorsResolver }}</mat-error>
+            </mat-form-field>
+
+            <div class="checkbox-field">
+              <div class="checkbox-row">
+                <mat-checkbox aria-describedby="reactive-agreement-error" [formControl]="agreementControl">
+                  Subscribe to the newsletter (Reactive Forms) <span aria-hidden="true">*</span>
+                </mat-checkbox>
+                <fp-validity-indicator [isValid]="agreementErrors() === null" />
+              </div>
+              <p class="checkbox-state">Value: <code>{{ agreementControl.value ?? 'null' }}</code></p>
+              <p id="reactive-agreement-error" class="checkbox-error" aria-live="polite">
+                @if (agreementControl.touched || agreementControl.dirty) {
+                  {{ agreementErrors() | formControlsErrorsResolver }}
+                }
+              </p>
+            </div>
+
+            <fp-code-example title="Reactive Forms" [code]="reactiveCode()" />
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card appearance="outlined" class="example-card">
+          <mat-card-header>
+            <mat-card-title>Signal Forms</mat-card-title>
+            <mat-card-subtitle>form() + fpRequired</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content class="required-fields">
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Name (Signal Forms)</mat-label>
+              <input matInput type="text" autocomplete="off" [formField]="orderForm.name">
+              <fp-validity-indicator matSuffix [isValid]="orderForm.name().errors().length === 0" />
+              <mat-error>{{ orderForm.name().errors() | formControlsErrorsResolver }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Quantity (Signal Forms)</mat-label>
+              <input matInput type="number" autocomplete="off" [formField]="orderForm.quantity">
+              <fp-validity-indicator matSuffix [isValid]="orderForm.quantity().errors().length === 0" />
+              <mat-error>{{ orderForm.quantity().errors() | formControlsErrorsResolver }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Languages (Signal Forms)</mat-label>
+              <mat-select multiple [formField]="orderForm.languages">
+                @for (languageOption of languageOptions; track languageOption.value) {
+                  <mat-option [value]="languageOption.value">{{ languageOption.label }}</mat-option>
+                }
+              </mat-select>
+              <fp-validity-indicator matSuffix [isValid]="orderForm.languages().errors().length === 0" />
+              <mat-error>{{ orderForm.languages().errors() | formControlsErrorsResolver }}</mat-error>
+            </mat-form-field>
+
+            <div class="checkbox-field">
+              <div class="checkbox-row">
+                <mat-checkbox aria-describedby="signal-agreement-error" [formField]="orderForm.isAgreed">
+                  Subscribe to the newsletter (Signal Forms) <span aria-hidden="true">*</span>
+                </mat-checkbox>
+                <fp-validity-indicator [isValid]="orderForm.isAgreed().errors().length === 0" />
+              </div>
+              <p class="checkbox-state">Value: <code>{{ orderForm.isAgreed().value() ?? 'null' }}</code></p>
+              <p id="signal-agreement-error" class="checkbox-error" aria-live="polite">
+                @if (orderForm.isAgreed().touched() || orderForm.isAgreed().dirty()) {
+                  {{ orderForm.isAgreed().errors() | formControlsErrorsResolver }}
+                }
+              </p>
+            </div>
+
+            <fp-code-example title="Signal Forms" [code]="signalCode()" />
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <mat-card appearance="outlined" class="content-card">
+        <mat-card-content>
+          <h2>Any value</h2>
+          <p>Apply a case to check a value that cannot be typed, such as a Set, a Map, a FileList or a Date.</p>
+          <p class="applied-value">Applied value: <code>{{ appliedValueLabel() }}</code></p>
+          <div class="card-grid">
+            <div>
+              <h3>Reactive Forms</h3>
+              <fp-error-view [errors]="anyValueErrors()" />
+            </div>
+            <div>
+              <h3>Signal Forms</h3>
+              <fp-error-view [errors]="anyValueSignalErrors().length > 0 ? anyValueSignalErrors() : null" />
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <h2>Test cases</h2>
+      <p>Every unit-test case. Apply one to check it in the "Any value" card and in the matching field.</p>
+      <fp-cases-table [rows]="caseRows" (applied)="applyCase($event)" />
+    </div>
+  </mat-tab>
+</mat-tab-group>

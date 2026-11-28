@@ -8,10 +8,11 @@ import {map, startWith, switchMap} from 'rxjs';
 import {ErrorView} from './error-view';
 import {FormControlsErrorsResolverPipe} from './form-controls-errors-resolver-pipe';
 import {ShowWhileTypingErrorStateMatcher} from './show-while-typing-error-state-matcher';
+import {ValidityIndicator} from './validity-indicator';
 
 @Component({
   selector: 'fp-reactive-live-field',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, FormControlsErrorsResolverPipe, ErrorView],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, FormControlsErrorsResolverPipe, ErrorView, ValidityIndicator],
   providers: [{provide: ErrorStateMatcher, useClass: ShowWhileTypingErrorStateMatcher}],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './reactive-live-field.html'

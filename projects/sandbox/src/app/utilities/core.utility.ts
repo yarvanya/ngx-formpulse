@@ -5,3 +5,11 @@ export function isString(value: unknown): value is string {
 export function isObject(value: unknown): value is object {
   return typeof value === 'object' && value !== null;
 }
+
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}
+
+export function isBoolean(value: unknown): value is boolean {
+  return typeof value === 'boolean';
+}

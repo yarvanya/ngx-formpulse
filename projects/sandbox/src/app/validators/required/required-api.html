@@ -1,0 +1,68 @@
+<nav class="api-contents" aria-label="On this tab">
+  @for (contentsLink of contentsLinks; track contentsLink.sectionId) {
+    <button type="button" (click)="scrollToSection(contentsLink.sectionId)">{{ contentsLink.label }}</button>
+  }
+</nav>
+
+<section class="api-section" aria-labelledby="api-imports">
+  <h2 id="api-imports">Imports</h2>
+  <fp-api-table caption="What to import and from where" [rows]="importRows" />
+</section>
+
+<section class="api-section" aria-labelledby="api-signatures">
+  <h2 id="api-signatures">Signatures</h2>
+  <fp-code-example title="ngx-formpulse (Reactive Forms)" [code]="reactiveSignature" />
+  <fp-code-example title="ngx-formpulse/signals (Signal Forms)" [code]="signalSignature" />
+  <fp-api-table caption="Parameters" [rows]="parameterRows" />
+  <fp-api-table caption="FpRequiredOptions" [rows]="optionRows" />
+  <fp-api-table caption="FpRequiredError" [rows]="errorRows" />
+  <fp-code-example title="Error example" [code]="errorExample" />
+</section>
+
+<section class="api-section" aria-labelledby="api-rules">
+  <h2 id="api-rules">Rules</h2>
+  <mat-card appearance="outlined" class="content-card">
+    <mat-card-content>
+      <ol class="feature-list">
+        @for (requiredRule of rules; track requiredRule) {
+          <li>{{ requiredRule }}</li>
+        }
+      </ol>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<section class="api-section" aria-labelledby="api-comparison">
+  <h2 id="api-comparison">Comparison</h2>
+  <p>What each library treats as missing, read from the source code of its required rule.</p>
+  <fp-reference-table caption="Required rules compared" [columns]="comparisonColumns" [rows]="comparisonRows" />
+</section>
+
+<section class="api-section" aria-labelledby="api-messages">
+  <h2 id="api-messages">Messages</h2>
+  <mat-card appearance="outlined" class="content-card">
+    <mat-card-content>
+      <h3>Which message wins</h3>
+      <ol class="feature-list">
+        @for (priorityRule of messagePriority; track priorityRule) {
+          <li>{{ priorityRule }}</li>
+        }
+      </ol>
+    </mat-card-content>
+  </mat-card>
+  <fp-code-example title="Custom message: text or function" [code]="messageForms" />
+  <fp-reference-table caption="Built-in fpRequired messages" [columns]="messageColumns" [rows]="messageRows" />
+</section>
+
+<section class="api-section" aria-labelledby="api-configuration">
+  <h2 id="api-configuration">Configuration</h2>
+  <p>Optional. Without <code>provideFormPulse</code> every message is English.</p>
+  <fp-code-example title="Signature" [code]="provideSignature" />
+  <fp-api-table caption="FpFormPulseConfig" [rows]="configRows" />
+  <fp-code-example title="app.config.ts" [code]="provideExample" />
+</section>
+
+<section class="api-section" aria-labelledby="api-types">
+  <h2 id="api-types">Related types</h2>
+  <fp-api-table caption="Types exported by ngx-formpulse" [rows]="relatedTypeRows" />
+</section>

@@ -14,7 +14,8 @@ export class ShowWhileTypingErrorStateMatcher implements ErrorStateMatcher {
       return false;
     }
     const fieldState = field_tree();
-    const hasValue = fieldState.value() !== '' && fieldState.value() !== null;
+    const fieldValue = fieldState.value();
+    const hasValue = fieldValue !== '' && fieldValue !== null && !(Array.isArray(fieldValue) && fieldValue.length === 0);
     return fieldState.invalid() && (fieldState.dirty() || fieldState.touched() || hasValue);
   }
 }
